@@ -1,8 +1,13 @@
 package com.example.finalproject;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.finalproject.model.ServiceFromTable;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,7 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class AcceptServiceByEmployee extends AppCompatActivity {
+public class AcceptServiceByEmployee extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     ArrayList<ServiceFromTable>services=new ArrayList<>();;
     RecyclerView recyclerView;
@@ -28,20 +34,26 @@ public class AcceptServiceByEmployee extends AppCompatActivity {
     int roomIdUser;
     private static final String BASE_URL = "http://10.0.2.2:80/FinalProject/getServiceFromEm.php";
     private RequestQueue queue;
+    Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accept_service_by_employee);
         queue = Volley.newRequestQueue(this);
         recyclerView=findViewById(R.id.service_recycler);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Customers' Service");
+        drawerLayout = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_Drawer_Open, R.string.navigation_Drawer_Close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
-       /* Intent intent = getIntent();
-        services=(ArrayList<String>) intent.getSerializableExtra("userRequest");
-        String idStr=intent.getStringExtra("userId");
-        id=Integer.parseInt(idStr);
-        roomIdUser=Integer.parseInt(intent.getStringExtra("roomId"));
-        recyclerView=findViewById(R.id.service_recycler);*/
-        //services=new ArrayList<>();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         getServices();
 
     }
@@ -103,5 +115,10 @@ public class AcceptServiceByEmployee extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 }
