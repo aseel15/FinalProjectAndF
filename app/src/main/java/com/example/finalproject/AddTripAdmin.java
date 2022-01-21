@@ -1,0 +1,208 @@
+package com.example.finalproject;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+public class AddTripAdmin extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+    private EditText edtTripName, edtPrice, edtDescription;
+    private TextView edtDate;
+    Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_trip_admin);
+        edtTripName = findViewById(R.id.TripName);
+        edtDate = findViewById(R.id.date_picker_actions);
+        edtPrice = findViewById(R.id.Price);
+        edtDescription=findViewById(R.id.Description);
+
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Insert Trip");
+        drawerLayout = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_Drawer_Open, R.string.navigation_Drawer_Close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        if (savedInstanceState!=null)
+            onRestoreInstanceState(savedInstanceState);
+
+        edtDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal =Calendar.getInstance();
+                final int year=cal.get(Calendar.YEAR);
+                final int month=cal.get(Calendar.MONTH);
+                final int day=cal.get(Calendar.DAY_OF_MONTH);
+
+
+                DatePickerDialog dialog= new DatePickerDialog(AddTripAdmin.this, new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        Calendar newDate = Calendar.getInstance();
+                        DateFormat DFormat = DateFormat.getDateInstance();
+
+                        newDate.set(year, month, day);
+                        edtDate.setText(DFormat.format(newDate.getTime()));
+                    }
+
+                },  cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+                dialog.show();
+            }
+        });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        outState.putString("Date",edtDate.getText().toString());
+
+        super.onSaveInstanceState(outState);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        edtDate.setText(savedInstanceState.getString("Date"));
+           }
+
+    public void btnClkAddTrip(View view) {
+        String TripName = edtTripName.getText().toString();
+        String date = edtDate.getText().toString();
+        String Description=edtDescription.getText().toString();
+
+        if (TripName.isEmpty())
+            Toast.makeText(AddTripAdmin.this, ("Please fill Trip Name field"), Toast.LENGTH_SHORT).show();
+
+        else if (date.isEmpty())
+            Toast.makeText(AddTripAdmin.this, ("Please fill Date field"), Toast.LENGTH_SHORT).show();
+
+        else if (edtPrice.getText().toString().isEmpty())
+            Toast.makeText(AddTripAdmin.this, ("Please fill Price field"), Toast.LENGTH_SHORT).show();
+
+        else if (Description.isEmpty())
+            Toast.makeText(AddTripAdmin.this, ("Please fill Price field"), Toast.LENGTH_SHORT).show();
+
+        else {
+            int Price = Integer.parseInt(edtPrice.getText().toString());
+            addTrip(TripName, date, Price, Description);}
+    }
+
+    private void addTrip(String TripName, String date, int Price,String Description) {
+        String url = "http://10.0.2.2:80/FinalProject/addTrip.php";
+        RequestQueue queue = Volley.newRequestQueue(AddTripAdmin.this);
+        StringRequest request = new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("TAG", "RESPONSE IS " + response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    Toast.makeText(AddTripAdmin.this,
+                            jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(AddTripAdmin.this,
+                        "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("name", TripName);
+                params.put("date", date);
+                params.put("price", String.valueOf(Price));
+                params.put("description", Description);
+
+
+                return params;
+            }
+        };
+        queue.add(request);
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+
+            case R.id.nav_home:
+                intent=new Intent(AddTripAdmin.this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_services:
+                intent=new Intent(AddTripAdmin.this, ServiceActivityCustomer.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_trips:
+                intent=new Intent(AddTripAdmin.this, TripList.class);
+                startActivity(intent);
+                break;
+
+            case R.id.nav_person:
+                intent=new Intent(AddTripAdmin.this, Profile.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_wedding:
+                intent=new Intent(AddTripAdmin.this, APIActivity.class);
+                startActivity(intent);
+                break;
+
+
+
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+}
