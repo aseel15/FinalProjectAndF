@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -7,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -119,6 +121,36 @@ public class AcceptServiceByEmployee extends AppCompatActivity implements Naviga
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        Intent intent;
+        switch (item.getItemId()) {
+
+            case R.id.nav_home_a:
+                intent=new Intent(AcceptServiceByEmployee.this, EmployeeResRoom.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_services_a:
+                intent=new Intent(AcceptServiceByEmployee.this, AcceptServiceByEmployee.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_trips_a:
+                intent=new Intent(AcceptServiceByEmployee.this, TripList.class);
+                startActivity(intent);
+                break;
+
+            case R.id.nav_persons_a:
+                intent=new Intent(AcceptServiceByEmployee.this, AllUser.class);
+                startActivity(intent);
+                break;
+
+            case R.id.nav_add_Person_a:
+                intent=new Intent(AcceptServiceByEmployee.this, addPersonAdmin.class);
+                startActivity(intent);
+                break;
+
+
+
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

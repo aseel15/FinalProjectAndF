@@ -177,25 +177,26 @@ public class AddTripAdmin extends AppCompatActivity implements NavigationView.On
         Intent intent;
         switch (item.getItemId()) {
 
-            case R.id.nav_home:
-                intent=new Intent(AddTripAdmin.this, MainActivity.class);
+            case R.id.nav_home_a:
+                intent=new Intent(AddTripAdmin.this, EmployeeResRoom.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_services:
-                intent=new Intent(AddTripAdmin.this, ServiceActivityCustomer.class);
+            case R.id.nav_services_a:
+                intent=new Intent(AddTripAdmin.this, AcceptServiceByEmployee.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_trips:
+            case R.id.nav_trips_a:
                 intent=new Intent(AddTripAdmin.this, TripList.class);
                 startActivity(intent);
                 break;
 
-            case R.id.nav_person:
-                intent=new Intent(AddTripAdmin.this, Profile.class);
+            case R.id.nav_persons_a:
+                intent=new Intent(AddTripAdmin.this, AllUser.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_wedding:
-                intent=new Intent(AddTripAdmin.this, APIActivity.class);
+
+            case R.id.nav_add_Person_a:
+                intent=new Intent(AddTripAdmin.this, addPersonAdmin.class);
                 startActivity(intent);
                 break;
 

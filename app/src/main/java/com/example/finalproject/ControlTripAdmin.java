@@ -131,25 +131,26 @@ public class ControlTripAdmin extends AppCompatActivity implements NavigationVie
         Intent intent;
         switch (item.getItemId()) {
 
-            case R.id.nav_home:
-                intent=new Intent(ControlTripAdmin.this, MainActivity.class);
+            case R.id.nav_home_a:
+                intent=new Intent(ControlTripAdmin.this, EmployeeResRoom.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_services:
-                intent=new Intent(ControlTripAdmin.this, ServiceActivityCustomer.class);
+            case R.id.nav_services_a:
+                intent=new Intent(ControlTripAdmin.this, AcceptServiceByEmployee.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_trips:
+            case R.id.nav_trips_a:
                 intent=new Intent(ControlTripAdmin.this, TripList.class);
                 startActivity(intent);
                 break;
 
-            case R.id.nav_person:
-                intent=new Intent(ControlTripAdmin.this, Profile.class);
+            case R.id.nav_persons_a:
+                intent=new Intent(ControlTripAdmin.this, AllUser.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_wedding:
-                intent=new Intent(ControlTripAdmin.this, APIActivity.class);
+
+            case R.id.nav_add_Person_a:
+                intent=new Intent(ControlTripAdmin.this, addPersonAdmin.class);
                 startActivity(intent);
                 break;
 
@@ -158,6 +159,5 @@ public class ControlTripAdmin extends AppCompatActivity implements NavigationVie
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-
     }
 }

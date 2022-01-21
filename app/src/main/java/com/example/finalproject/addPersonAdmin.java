@@ -124,25 +124,26 @@ public class addPersonAdmin extends AppCompatActivity implements NavigationView.
         Intent intent;
         switch (item.getItemId()) {
 
-            case R.id.nav_home:
-                intent=new Intent(addPersonAdmin.this, MainActivity.class);
+            case R.id.nav_home_a:
+                intent=new Intent(addPersonAdmin.this, EmployeeResRoom.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_services:
-                intent=new Intent(addPersonAdmin.this, ServiceActivityCustomer.class);
+            case R.id.nav_services_a:
+                intent=new Intent(addPersonAdmin.this, AcceptServiceByEmployee.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_trips:
+            case R.id.nav_trips_a:
                 intent=new Intent(addPersonAdmin.this, TripList.class);
                 startActivity(intent);
                 break;
 
-            case R.id.nav_person:
-                intent=new Intent(addPersonAdmin.this, Profile.class);
+            case R.id.nav_persons_a:
+                intent=new Intent(addPersonAdmin.this, AllUser.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_wedding:
-                intent=new Intent(addPersonAdmin.this, APIActivity.class);
+
+            case R.id.nav_add_Person_a:
+                intent=new Intent(addPersonAdmin.this, addPersonAdmin.class);
                 startActivity(intent);
                 break;
 
