@@ -86,6 +86,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/edtCheckInEm"
+            android:background="@color/zumthor"
             android:src="@drawable/ic_in"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -97,6 +98,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/edtCheckOutEm"
+            android:background="@color/zumthor"
             android:src="@drawable/ic_in"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -124,6 +126,7 @@
             android:layout_marginRight="20dp"
             android:onClick="btnNextOnClick"
             android:text="Next"
+            android:textColor="#FFFFFF"
             app:backgroundTint="#10B5E3" />
 
 

@@ -3,19 +3,38 @@ package com.example.finalproject;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.finalproject.model.ReservedRoom;
 import com.example.finalproject.model.Room;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.ViewHolder>{
     private Button[]detailButtons;
@@ -24,6 +43,10 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
     List<Room> rooms;
     String dateCheckIn;
     String dateCheckOut;
+    private static final String string_Url="http://10.0.2.2:80/FinalProject/getReservedRoom.php";
+    HashMap<Integer, ReservedRoom>reservedRoomHashMap=new HashMap<>();
+    private RequestQueue queue1;
+    public ArrayList<String>conflictDeleted=new ArrayList<>();
 
     public CaptionedEmAdapter(Context context, List<Room>rooms, String dateCheckIn, String dateCheckOut){
         this.context=context;
@@ -31,6 +54,7 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
         this.rooms=rooms;
         this.dateCheckIn=dateCheckIn;
         this.dateCheckOut=dateCheckOut;
+        queue1 = Volley.newRequestQueue(this.context);
     }
     public interface OnItemClickListener{
         void onItemClick(int position);
@@ -78,8 +102,96 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
             detailButton.getContext().startActivity(intent);
 
         });
+        Button deleteButton=(Button) cardView.findViewById(R.id.btnDeleteEm);
+
+        deleteButton.setOnClickListener(view -> {
+            populateReservedRooms(rooms.get(position).getId());
+            if(conflictDeleted.isEmpty()) {
+              //  deleteRoom(rooms.get(position).getId());
+                rooms.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, rooms.size());
+                holder.itemView.setVisibility(View.GONE);
+            }
+            else {
+                Toast.makeText(context, "this room is reserved now you can't delete it!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
+    public void populateReservedRooms(int roomId){
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        String BASE_URL = "http://10.0.2.2:80/FinalProject/selectRRoomAfterNow.php?roomsID=" + roomId+"&check_Out="+date;
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+
+        StringRequest request = new StringRequest(Request.Method.GET, BASE_URL,
+
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray roomList=new JSONArray(response);
+                            for(int i=0;i<roomList.length();i++){
+                                JSONObject jsonObject= roomList.getJSONObject(i);
+                                int id = jsonObject.getInt("roomsID");
+                                conflictDeleted.add(id+"");
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(context, error.toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+        queue.add(request);
+    }
+    public void deleteRoom(int roomId){
+        String url="http://10.0.2.2:80/RoomDataBase/deleteRoomByEm.php";
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest request=new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //textTry.setText(error.getMessage());
+                Toast.makeText(context,
+                        "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            public String getBodyContentType(){
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+            @Override
+            protected Map<String, String> getParams() {
+                //ServiceFromTable service=new ServiceFromTable(userId,roomId,totalPrice);
+                Map<String, String> params = new HashMap<>();
+                //by shared preference
+                params.put("id",roomId+"");
+
+                return params;
+            }
+        };
+        queue.add(request);
+
+    }
+
 
 
 

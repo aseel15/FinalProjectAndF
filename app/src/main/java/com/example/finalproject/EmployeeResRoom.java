@@ -42,6 +42,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class EmployeeResRoom extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private RequestQueue queue;
@@ -83,6 +85,7 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
         if (savedInstanceState!=null)
             onRestoreInstanceState(savedInstanceState);
         populateAllData();
+        removeDeadLineCheckOut();
         populateReservedRooms();
     }
     @Override
@@ -155,6 +158,42 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
         });
         queue.add(request);
     }
+    public void removeDeadLineCheckOut(){
+        String url="http://10.0.2.2:80/RoomDataBase/deleteReservedRoom.php";
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        StringRequest request=new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //textTry.setText(error.getMessage());
+                Toast.makeText(EmployeeResRoom.this,
+                        "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            public String getBodyContentType(){
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+            @Override
+            protected Map<String, String> getParams() {
+                //ServiceFromTable service=new ServiceFromTable(userId,roomId,totalPrice);
+                Map<String, String> params = new HashMap<>();
+                //by shared preference
+
+                params.put("check_Out",date);
+                return params;
+            }
+        };
+        queue.add(request);
+
+    }
     public void populateReservedRooms(){
 
         StringRequest request=new StringRequest(Request.Method.GET, string_Url,
@@ -223,6 +262,7 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
                     }
                 },year,month,day);
                 datePickerDialog.show();
+
             }
         });
         checkOutButton.setOnClickListener(new View.OnClickListener() {

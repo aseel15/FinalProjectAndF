@@ -170,7 +170,7 @@ public class CaptionedServiceAdapter extends RecyclerView.Adapter<CaptionedServi
 
                 params.put("roomId", roomIdUser+"");
                 params.put("userId", id+"");
-                params.put("totalPrice", "6");
+                params.put("totalPrice", "5");
                 return params;
             }
         };
