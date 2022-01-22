@@ -136,12 +136,15 @@ public class DetailActivity extends AppCompatActivity {
     }
     public void postData(){
         String url="http://10.0.2.2:80/FinalProject/reserveRoom.php";
+        days= calculateDays();
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request=new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                 days= calculateDays();
+
+                Toast.makeText(DetailActivity.this,
+                        response, Toast.LENGTH_LONG).show();
                 //textTry.setText(response);
 
             }
@@ -165,7 +168,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 params.put("roomsID", roomNumber+"");
                 //by shared preference
-                params.put("userId", "2");
+                params.put("userId", "3");
                 params.put("check_In", dateCheckIn);
                 params.put("check_Out",dateCheckOut);
                 params.put("totalPrice",(days*room.getPrice())+"");
@@ -187,6 +190,8 @@ public class DetailActivity extends AppCompatActivity {
 
             //call method to post it to database
             postData();
+            Toast.makeText(DetailActivity.this,
+                    "Room Reserved successfully", Toast.LENGTH_SHORT).show();
         }
     }
 }

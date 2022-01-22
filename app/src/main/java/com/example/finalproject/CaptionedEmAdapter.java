@@ -43,6 +43,7 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
     List<Room> rooms;
     String dateCheckIn;
     String dateCheckOut;
+    int size;
     private static final String string_Url="http://10.0.2.2:80/FinalProject/getReservedRoom.php";
     HashMap<Integer, ReservedRoom>reservedRoomHashMap=new HashMap<>();
     private RequestQueue queue1;
@@ -71,12 +72,7 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
         return new ViewHolder(v);
     }
 
-    public int getImage(String imageName) {
 
-        int drawableResourceId = context.getResources().getIdentifier(imageName, null, context.getPackageName());
-
-        return drawableResourceId;
-    }
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
@@ -106,7 +102,7 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
 
         deleteButton.setOnClickListener(view -> {
             populateReservedRooms(rooms.get(position).getId());
-            if(conflictDeleted.isEmpty()) {
+            if(size==0) {
               //  deleteRoom(rooms.get(position).getId());
                 rooms.remove(position);
                 notifyItemRemoved(position);
@@ -123,7 +119,7 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
     }
     public void populateReservedRooms(int roomId){
         String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        String BASE_URL = "http://10.0.2.2:80/FinalProject/selectRRoomAfterNow.php?roomsID=" + roomId+"&check_Out="+date;
+        String BASE_URL = "http://10.0.2.2:80/FinalProject/selectRRoomsAfterNow.php?roomsID=" + roomId+"&check_Out="+date;
         RequestQueue queue = Volley.newRequestQueue(context);
 
 
@@ -139,7 +135,7 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
                                 int id = jsonObject.getInt("roomsID");
                                 conflictDeleted.add(id+"");
                             }
-
+                            size=conflictDeleted.size();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -157,7 +153,7 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
         queue.add(request);
     }
     public void deleteRoom(int roomId){
-        String url="http://10.0.2.2:80/RoomDataBase/deleteRoomByEm.php";
+        String url="http://10.0.2.2:80/FinalProject/deleteRoomByEm.php";
         RequestQueue queue = Volley.newRequestQueue(context);
         StringRequest request=new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
