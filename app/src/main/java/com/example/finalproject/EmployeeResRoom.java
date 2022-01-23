@@ -212,9 +212,7 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
                                 int totalPrice=jsonObject.getInt("totalPrice");
                                 reservedRoomHashMap.put(roomID,new ReservedRoom(roomID,check_In,check_Out));
                             }
-                            //checkIn.setText(response);
                         } catch (JSONException e) {
-                            // checkIn.setText(response);
                             e.printStackTrace();
                         }
 
@@ -306,50 +304,45 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
         ArrayList<Room>roomsFiltered=new ArrayList<>();
 
 
-        if(!checkInTxt.isEmpty()&&checkOutTxt.isEmpty()){
-            Toast.makeText(EmployeeResRoom.this, "Invalid Date",Toast.LENGTH_SHORT);
+        if(checkInTxt.isEmpty()||checkOutTxt.isEmpty()){
+            Toast.makeText(EmployeeResRoom.this, "You should enter the dates",Toast.LENGTH_SHORT).show();
         }
-        else if(checkInTxt.isEmpty()&&!checkOutTxt.isEmpty()){
-            Toast.makeText(EmployeeResRoom.this, "Invalid Date",Toast.LENGTH_SHORT);
-        }
-        else if(!roomTypeTxt.equalsIgnoreCase("select type")&&!checkInTxt.isEmpty()&&!checkOutTxt.isEmpty()) {
 
-            if (inUserDate.compareTo(outUserDate) < 0) {
-                for (int i = 0; i < rooms.size(); i++) {
+        else {
+            if (!roomTypeTxt.equalsIgnoreCase("select type")) {
+
+                if (inUserDate.compareTo(outUserDate) < 0) {
+                    for (int i = 0; i < rooms.size(); i++) {
                         if (reservedRoomHashMap.containsKey(rooms.get(i).getId())) {
                             ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
                             Date inReservedDate = formatDate(reservedRoom.getCheck_In());
                             Date outReservedDate = formatDate(reservedRoom.getCheck_Out());
 
                             if (inUserDate.compareTo(outReservedDate) > 0 || outUserDate.compareTo(inReservedDate) < 0) {
-                                if(rooms.get(i).getRoomType().equalsIgnoreCase(roomTypeTxt)) {
+                                if (rooms.get(i).getRoomType().equalsIgnoreCase(roomTypeTxt)) {
                                     roomsFiltered.add(rooms.get(i));
-
 
 
                                 }
                             }
 
-                        }
-                        else {
-                            if(rooms.get(i).getRoomType().equalsIgnoreCase(roomTypeTxt))
+                        } else {
+                            if (rooms.get(i).getRoomType().equalsIgnoreCase(roomTypeTxt))
                                 roomsFiltered.add(rooms.get(i));
                         }
+                    }
+
+                    recycler.setLayoutManager(new LinearLayoutManager(EmployeeResRoom.this));
+                    CaptionedEmAdapter adapter = new CaptionedEmAdapter(EmployeeResRoom.this, roomsFiltered, checkInTxt, checkOutTxt);
+
+                    recycler.setAdapter(adapter);
+                } else {
+
+                    Toast.makeText(EmployeeResRoom.this, "Invalid Date", Toast.LENGTH_SHORT).show();
                 }
-
-                recycler.setLayoutManager(new LinearLayoutManager(EmployeeResRoom.this));
-                CaptionedEmAdapter adapter = new CaptionedEmAdapter(EmployeeResRoom.this,roomsFiltered,checkInTxt,checkOutTxt);
-
-                recycler.setAdapter(adapter);
-            } else {
-
-                Toast.makeText(EmployeeResRoom.this, "Invalid Date", Toast.LENGTH_SHORT);
-            }
-        }
-
-        else if(!checkInTxt.isEmpty()&&!checkOutTxt.isEmpty()&&roomTypeTxt.equalsIgnoreCase("select type")){
-            if (inUserDate.compareTo(outUserDate) < 0) {
-                for (int i = 0; i < rooms.size(); i++) {
+            } else if (roomTypeTxt.equalsIgnoreCase("select type")) {
+                if (inUserDate.compareTo(outUserDate) < 0) {
+                    for (int i = 0; i < rooms.size(); i++) {
                         if (reservedRoomHashMap.containsKey(rooms.get(i).getId())) {
                             ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
                             Date inReservedDate = formatDate(reservedRoom.getCheck_In());
@@ -360,22 +353,22 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
 
                             }
 
-                        }
-                        else {
+                        } else {
                             roomsFiltered.add(rooms.get(i));
                         }
+                    }
+
+                    recycler.setLayoutManager(new LinearLayoutManager(EmployeeResRoom.this));
+                    CaptionedEmAdapter adapter = new CaptionedEmAdapter(EmployeeResRoom.this, roomsFiltered, checkInTxt, checkOutTxt);
+
+                    recycler.setAdapter(adapter);
+                } else {
+
+                    Toast.makeText(EmployeeResRoom.this, "Invalid Date", Toast.LENGTH_SHORT).show();
                 }
 
-                recycler.setLayoutManager(new LinearLayoutManager(EmployeeResRoom.this));
-                CaptionedEmAdapter adapter = new CaptionedEmAdapter(EmployeeResRoom.this,roomsFiltered,checkInTxt,checkOutTxt);
 
-                recycler.setAdapter(adapter);
-            } else {
-
-                Toast.makeText(EmployeeResRoom.this, "Invalid Date", Toast.LENGTH_SHORT);
             }
-
-
         }
 
 

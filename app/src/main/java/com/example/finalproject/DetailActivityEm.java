@@ -190,7 +190,7 @@ public class DetailActivityEm extends AppCompatActivity {
 
 
     public void btnReserveOnClick(View view) {
-        if(dateCheckIn==null||dateCheckOut==null){
+        if(dateCheckIn.isEmpty()||dateCheckOut.isEmpty()){
             Toast.makeText(DetailActivityEm.this,
                     "You should enter check in & check out date", Toast.LENGTH_SHORT).show();
         }
@@ -243,19 +243,25 @@ public class DetailActivityEm extends AppCompatActivity {
 
 
         String s = String.valueOf(edtUserId.getText());
-        int uId=Integer.parseInt(s);
-        boolean flag=false;
-        for(int i=0;i<userIds.size();i++){
-            if(uId== userIds.get(i)){
-                idAdded=uId;
-                flag=true;
-                textTry.setText("true");
-                break;
+        if(s.isEmpty())
+            Toast.makeText(DetailActivityEm.this, "Enter The User Id",
+                    Toast.LENGTH_SHORT).show();
+        else {
+            int uId = Integer.parseInt(s);
+            boolean flag = false;
+            for (int i = 0; i < userIds.size(); i++) {
+                if (uId == userIds.get(i)) {
+                    idAdded = uId;
+                    flag = true;
+
+                    break;
+                }
             }
-        }
-        if(!flag){
-            textTry.setText("false");
-            //add user
+            if (!flag) {
+                Toast.makeText(DetailActivityEm.this,"there is no user has this id",
+                        Toast.LENGTH_SHORT).show();
+                //add user
+            }
         }
 
 

@@ -182,9 +182,9 @@ public class DetailActivity extends AppCompatActivity {
 
 
     public void btnReserveOnClick(View view) {
-        if(dateCheckIn==null||dateCheckOut==null){
+        if(dateCheckIn.isEmpty()||dateCheckOut.isEmpty()){
             Toast.makeText(DetailActivity.this,
-                    "You should enter check in & check out date", Toast.LENGTH_SHORT).show();
+                    "You should enter check in & check out date or the date invalid", Toast.LENGTH_SHORT).show();
         }
         else{
 

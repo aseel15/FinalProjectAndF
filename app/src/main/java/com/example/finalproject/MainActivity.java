@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -212,7 +214,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         int totalPrice=jsonObject.getInt("totalPrice");
                         reservedRoomHashMap.put(roomID,new ReservedRoom(roomID,check_In,check_Out));
                     }
-                    //checkIn.setText(response);
+                    Toast.makeText(MainActivity.this, "tru",
+                            Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                    // checkIn.setText(response);
                     e.printStackTrace();
@@ -298,55 +301,52 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     public void btnNextOnClick(View view) {
+        String checkTry=checkIn.getText().toString();
         String checkInTxt=(checkIn.getText().toString()).replace("/","-");
         String checkOutTxt=(checkOut.getText().toString()).replace("/","-");
         String roomTypeTxt=spinRoomType.getSelectedItem().toString();
-        Date inUserDate=formatDate(checkInTxt);
-        Date outUserDate=formatDate(checkOutTxt);
         ArrayList<Room>roomsFiltered=new ArrayList<>();
-       //checkIn.setText(String.valueOf(inUserDate));
 
+        if(checkInTxt.isEmpty()||checkOutTxt.isEmpty()){
+            Toast.makeText(MainActivity.this, "You should enter the date",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Date inUserDate=formatDate(checkInTxt);
+            Date outUserDate=formatDate(checkOutTxt);
+            if (!roomTypeTxt.equalsIgnoreCase("select type")) {
 
-        if(!roomTypeTxt.equalsIgnoreCase("select type")&&checkInTxt!=null&&checkOutTxt!=null) {
-
-            if (inUserDate.compareTo(outUserDate) < 0) {
-                for (int i = 0; i < rooms.size(); i++) {
-                   // if(!reservedRoomHashMap.isEmpty())
+                if (inUserDate.compareTo(outUserDate) < 0) {
+                    for (int i = 0; i < rooms.size(); i++) {
                         if (reservedRoomHashMap.containsKey(rooms.get(i).getId())) {
                             ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
                             Date inReservedDate = formatDate(reservedRoom.getCheck_In());
                             Date outReservedDate = formatDate(reservedRoom.getCheck_Out());
 
                             if (inUserDate.compareTo(outReservedDate) > 0 || outUserDate.compareTo(inReservedDate) < 0) {
-                               if(rooms.get(i).getRoomType().equalsIgnoreCase(roomTypeTxt)) {
-                                   roomsFiltered.add(rooms.get(i));
+                                if (rooms.get(i).getRoomType().equalsIgnoreCase(roomTypeTxt)) {
+                                    roomsFiltered.add(rooms.get(i));
 
 
-
-                               }
+                                }
                             }
 
-                       }
-                        else {
-                            if(rooms.get(i).getRoomType().equalsIgnoreCase(roomTypeTxt))
-                                 roomsFiltered.add(rooms.get(i));
+                        } else {
+                            if (rooms.get(i).getRoomType().equalsIgnoreCase(roomTypeTxt))
+                                roomsFiltered.add(rooms.get(i));
                         }
+                    }
+
+                    recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                    com.example.finalproject.CaptionedImageAdapter adapter = new com.example.finalproject.CaptionedImageAdapter(MainActivity.this, roomsFiltered, checkInTxt, checkOutTxt);
+
+                    recycler.setAdapter(adapter);
+                } else {
+
+                    Toast.makeText(MainActivity.this, "Invalid Date", Toast.LENGTH_SHORT).show();
                 }
-
-                recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                com.example.finalproject.CaptionedImageAdapter adapter = new com.example.finalproject.CaptionedImageAdapter(MainActivity.this,roomsFiltered,checkInTxt,checkOutTxt);
-
-                recycler.setAdapter(adapter);
-            } else {
-
-                Toast.makeText(MainActivity.this, "Invalid Date", Toast.LENGTH_SHORT);
-            }
-        }
-
-        else if(checkInTxt!=null&&checkOutTxt!=null&&roomTypeTxt.equalsIgnoreCase("select type")){
-            if (inUserDate.compareTo(outUserDate) < 0) {
-                for (int i = 0; i < rooms.size(); i++) {
-                  //  if(!reservedRoomHashMap.isEmpty())
+            } else if (roomTypeTxt.equalsIgnoreCase("select type")) {
+                if (inUserDate.compareTo(outUserDate) < 0) {
+                    for (int i = 0; i < rooms.size(); i++) {
                         if (reservedRoomHashMap.containsKey(rooms.get(i).getId())) {
                             ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
                             Date inReservedDate = formatDate(reservedRoom.getCheck_In());
@@ -357,35 +357,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                             }
 
-                        }
-                        else {
+                        } else {
                             roomsFiltered.add(rooms.get(i));
                         }
                     }
 
-                recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                com.example.finalproject.CaptionedImageAdapter adapter = new com.example.finalproject.CaptionedImageAdapter(MainActivity.this,roomsFiltered,checkInTxt,checkOutTxt);
+                    recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                    com.example.finalproject.CaptionedImageAdapter adapter = new com.example.finalproject.CaptionedImageAdapter(MainActivity.this, roomsFiltered, checkInTxt, checkOutTxt);
 
-                recycler.setAdapter(adapter);
-            } else {
+                    recycler.setAdapter(adapter);
+                } else {
 
-                Toast.makeText(MainActivity.this, "Invalid Date", Toast.LENGTH_SHORT);
+                    Toast.makeText(MainActivity.this, "Invalid Date", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
-
-
         }
 
-        else if(checkInTxt!=null&&checkOutTxt==null){
-            Toast.makeText(MainActivity.this, "Invalid Date",Toast.LENGTH_SHORT);
-        }
-        else if(checkInTxt==null&&checkOutTxt!=null){
-            Toast.makeText(MainActivity.this, "Invalid Date",Toast.LENGTH_SHORT);
-        }
 
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        Intent intent;
+        switch (item.getItemId()) {
+
+            case R.id.nav_home:
+                intent=new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_services:
+                intent=new Intent(MainActivity.this, ServiceActivityCustomer.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_trips:
+                intent=new Intent(MainActivity.this, TripList.class);
+                startActivity(intent);
+                break;
+
+            case R.id.nav_person:
+                intent=new Intent(MainActivity.this, Profile.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_wedding:
+                intent=new Intent(MainActivity.this, APIActivity.class);
+                startActivity(intent);
+                break;
+
+
+
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

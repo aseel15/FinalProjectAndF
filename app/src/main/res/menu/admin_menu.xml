@@ -12,7 +12,7 @@
         <item
             android:id="@+id/nav_addroom_a"
             android:icon="@drawable/addroom"
-            android:title="Home" />
+            android:title="Add Room" />
     </group>
 
     <group>

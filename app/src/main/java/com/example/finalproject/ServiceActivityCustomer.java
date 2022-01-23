@@ -221,14 +221,18 @@ public class ServiceActivityCustomer extends AppCompatActivity implements Naviga
 
 
     public void btnRequestClick(View view) {
-        addServiceToTable();
-       /* Intent intent= new Intent(this,AcceptServiceByEmployee.class);
-        //get the id from the shared preference
-         intent.putExtra("userId","1");
-         intent.putExtra("roomId",roomIdChosen);
-         intent.putExtra("userRequest",selectedServices);
-         startActivity(intent);*/
-        //add to the service table to appear in the employee screen
+        if(roomIdChosen==null){
+            Toast.makeText(ServiceActivityCustomer.this, "you should choose the room Id! ",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else if(selectedServices.isEmpty())
+            Toast.makeText(ServiceActivityCustomer.this, "you should choose a service! ",
+                    Toast.LENGTH_SHORT).show();
+        else
+            //add to the service table to appear in the employee screen
+            addServiceToTable();
+
+
 
 
 

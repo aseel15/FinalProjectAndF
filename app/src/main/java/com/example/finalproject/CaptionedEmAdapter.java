@@ -103,13 +103,11 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
         deleteButton.setOnClickListener(view -> {
 
             if(size==0) {
-                Toast.makeText(context, "deleted room!",
-                        Toast.LENGTH_LONG).show();
-              //  deleteRoom(rooms.get(position).getId());
-              /*  rooms.remove(position);
+                deleteRoom(rooms.get(position).getId());
+                rooms.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, rooms.size());
-                holder.itemView.setVisibility(View.GONE);*/
+                holder.itemView.setVisibility(View.GONE);
             }
             else {
                 Toast.makeText(context, "this room is reserved now you can't delete it!",
@@ -138,8 +136,6 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
                                 conflictDeleted.add(id+"");
                             }
                             size=conflictDeleted.size();
-                            Toast.makeText(context, "size = "+conflictDeleted.size(),
-                                    Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
