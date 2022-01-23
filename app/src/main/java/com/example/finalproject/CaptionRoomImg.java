@@ -39,17 +39,10 @@ public class CaptionRoomImg extends RecyclerView.Adapter<CaptionRoomImg.ViewHold
 
         return new ViewHolder(v, mOnItemListener);
     }
-    public int getImage(String imageName) {
-
-        int drawableResourceId = context.getResources().getIdentifier(imageName, null, context.getPackageName());
-
-        return drawableResourceId;
-    }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CardView cardView = holder.cardView;
-        //TextView textImg=(TextView)cardView.findViewById(R.id.imgUrlTry);
         ImageView img = (ImageView) cardView.findViewById(R.id.imageAPI);
         Glide.with(context).load(imageList.get(position)).into(img);
     }
