@@ -58,15 +58,37 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
         navigationView.setNavigationItemSelectedListener(this);
 
 
+        if (savedInstanceState!=null)
+            onRestoreInstanceState(savedInstanceState);
+
        // populateImages();
 
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        outState.putString("ImageUrlSaved",urlImage);
+
+        super.onSaveInstanceState(outState);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        urlImage=savedInstanceState.getString("ImageUrlSaved");
     }
 
 
     public void btnClkAddRoom(View view) {
         String priceTxt=edtPrice.getText().toString();
         String sizeTxt=edtSize.getText().toString();
-        if(priceTxt.isEmpty())
+        String roomType=spinRoomType.getSelectedItem().toString();
+        String bedType=spinBedType.getSelectedItem().toString();
+        if(roomType.equalsIgnoreCase("select type"))
+            Toast.makeText(AddRoom.this, ("Please choose the room type"), Toast.LENGTH_SHORT).show();
+        else if(bedType.equalsIgnoreCase("select type"))
+            Toast.makeText(AddRoom.this, ("Please choose the bed type"), Toast.LENGTH_SHORT).show();
+        else if(priceTxt.isEmpty())
             Toast.makeText(AddRoom.this, ("Please enter the price"), Toast.LENGTH_SHORT).show();
         else if(sizeTxt.isEmpty())
             Toast.makeText(AddRoom.this, ("Please enter the size"), Toast.LENGTH_SHORT).show();
@@ -74,9 +96,8 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
             Toast.makeText(AddRoom.this, ("Please choose the image "), Toast.LENGTH_SHORT).show();
         else {
             //call database method
-            //edtSize.setText("added in right");
             AddRoomToDB();
-            Toast.makeText(AddRoom.this, ("room size "+sizeTxt), Toast.LENGTH_SHORT).show();
+
         }
 
 
