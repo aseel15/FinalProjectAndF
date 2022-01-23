@@ -90,6 +90,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/edtCheckIn"
+            android:background="@color/zumthor"
             android:src="@drawable/ic_in"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -101,6 +102,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/edtCheckOut"
+            android:background="@color/zumthor"
             android:src="@drawable/ic_in"
             tools:ignore="SpeakableTextPresentCheck" />
 
