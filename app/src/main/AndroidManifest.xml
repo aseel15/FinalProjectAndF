@@ -22,6 +22,14 @@
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+            android:name=".AddRoom"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ImageHotelActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".AllUser"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar"/>

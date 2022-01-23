@@ -168,7 +168,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 params.put("roomsID", roomNumber+"");
                 //by shared preference
-                params.put("userId", "3");
+                params.put("userId", "13");
                 params.put("check_In", dateCheckIn);
                 params.put("check_Out",dateCheckOut);
                 params.put("totalPrice",(days*room.getPrice())+"");

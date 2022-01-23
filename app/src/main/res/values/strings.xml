@@ -6,5 +6,7 @@
     <string name="hint_resource">Select Date</string>
     <string name="navigation_Drawer_Open">Open navigation drawer</string>
     <string name="navigation_Drawer_Close">Close navigation drawer</string>
+    <string name="title_activity_main">MainActivity</string>
+
 
 </resources>

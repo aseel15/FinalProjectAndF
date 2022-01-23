@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                             //Filter according to room type
                             spinRoomType =findViewById(R.id.spinRoom);
-                            populateData();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -230,16 +230,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         queue1.add(request);
     }
 
-    public void populateData(){
 
-        ArrayList<String> roomTypes=new ArrayList<>();
-        roomTypes.add("Room Type");
-        for(int i=0;i< rooms.size();i++)
-            roomTypes.add(rooms.get(i).getRoomType());
-
-        ArrayAdapter<String>arrayAdapter=new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roomTypes);
-        spinRoomType.setAdapter(arrayAdapter);
-    }
 
     public void selectDate(ImageButton checkInButton, ImageButton checkOutButton){
         DatePickerDialog.OnDateSetListener setListener;
@@ -316,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
        //checkIn.setText(String.valueOf(inUserDate));
 
 
-        if(!roomTypeTxt.equalsIgnoreCase("Room Type")&&checkInTxt!=null&&checkOutTxt!=null) {
+        if(!roomTypeTxt.equalsIgnoreCase("select type")&&checkInTxt!=null&&checkOutTxt!=null) {
 
             if (inUserDate.compareTo(outUserDate) < 0) {
                 for (int i = 0; i < rooms.size(); i++) {
@@ -352,7 +343,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
 
-        else if(checkInTxt!=null&&checkOutTxt!=null&&roomTypeTxt.equalsIgnoreCase("Room Type")){
+        else if(checkInTxt!=null&&checkOutTxt!=null&&roomTypeTxt.equalsIgnoreCase("select type")){
             if (inUserDate.compareTo(outUserDate) < 0) {
                 for (int i = 0; i < rooms.size(); i++) {
                   //  if(!reservedRoomHashMap.isEmpty())

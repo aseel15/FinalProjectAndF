@@ -142,7 +142,7 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
 
                             //Filter according to room type
                             spinRoomType =findViewById(R.id.spinRoomEm);
-                            populateData();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -230,16 +230,6 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
         queue1.add(request);
     }
 
-    public void populateData(){
-
-        ArrayList<String> roomTypes=new ArrayList<>();
-        roomTypes.add("Room Type");
-        for(int i=0;i< rooms.size();i++)
-            roomTypes.add(rooms.get(i).getRoomType());
-
-        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roomTypes);
-        spinRoomType.setAdapter(arrayAdapter);
-    }
 
     public void selectDate(ImageButton checkInButton, ImageButton checkOutButton){
         DatePickerDialog.OnDateSetListener setListener;
@@ -316,13 +306,16 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
         ArrayList<Room>roomsFiltered=new ArrayList<>();
 
 
-
-        if(!roomTypeTxt.equalsIgnoreCase("Room Type")&&checkInTxt!=null&&checkOutTxt!=null) {
+        if(!checkInTxt.isEmpty()&&checkOutTxt.isEmpty()){
+            Toast.makeText(EmployeeResRoom.this, "Invalid Date",Toast.LENGTH_SHORT);
+        }
+        else if(checkInTxt.isEmpty()&&!checkOutTxt.isEmpty()){
+            Toast.makeText(EmployeeResRoom.this, "Invalid Date",Toast.LENGTH_SHORT);
+        }
+        else if(!roomTypeTxt.equalsIgnoreCase("select type")&&!checkInTxt.isEmpty()&&!checkOutTxt.isEmpty()) {
 
             if (inUserDate.compareTo(outUserDate) < 0) {
-                //لازم افحص اذا الديت اللي دخلته بعد الكرنت ديت او يساويه
                 for (int i = 0; i < rooms.size(); i++) {
-                    if(!reservedRoomHashMap.isEmpty())
                         if (reservedRoomHashMap.containsKey(rooms.get(i).getId())) {
                             ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
                             Date inReservedDate = formatDate(reservedRoom.getCheck_In());
@@ -354,11 +347,9 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
             }
         }
 
-        else if(checkInTxt!=null&&checkOutTxt!=null&&roomTypeTxt.equalsIgnoreCase("Room Type")){
+        else if(!checkInTxt.isEmpty()&&!checkOutTxt.isEmpty()&&roomTypeTxt.equalsIgnoreCase("select type")){
             if (inUserDate.compareTo(outUserDate) < 0) {
-                //لازم افحص اذا الديت اللي دخلته بعد الكرنت ديت او يساويه
                 for (int i = 0; i < rooms.size(); i++) {
-                    if(!reservedRoomHashMap.isEmpty())
                         if (reservedRoomHashMap.containsKey(rooms.get(i).getId())) {
                             ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
                             Date inReservedDate = formatDate(reservedRoom.getCheck_In());
@@ -387,12 +378,6 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
 
         }
 
-        else if(checkInTxt!=null&&checkOutTxt==null){
-            Toast.makeText(EmployeeResRoom.this, "Invalid Date",Toast.LENGTH_SHORT);
-        }
-        else if(checkInTxt==null&&checkOutTxt!=null){
-            Toast.makeText(EmployeeResRoom.this, "Invalid Date",Toast.LENGTH_SHORT);
-        }
 
     }
 

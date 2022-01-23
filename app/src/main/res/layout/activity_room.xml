@@ -37,7 +37,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:text="Check in Date: "
-            android:textSize="15dp" />
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtCheckOut"
@@ -48,7 +50,9 @@
             android:layout_marginTop="10dp"
 
             android:text="Check out Date: "
-            android:textSize="15dp" />
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edtCheckIn"
@@ -105,6 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txtCheckOut"
+            android:entries="@array/roomTypeItems"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="2dp"
             android:minHeight="48dp"

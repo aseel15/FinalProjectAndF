@@ -79,7 +79,7 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
 
         CardView cardView = holder.cardView;
         ImageView img = (ImageView) cardView.findViewById(R.id.imageEm);
-        Glide.with(context).load("http://10.0.2.2:80/FinalProject/images/"+rooms.get(position).getImageURL()+".jpg").into(img);
+        Glide.with(context).load(rooms.get(position).getImageURL()).into(img);
 
         TextView txtRoomType = (TextView)cardView.findViewById(R.id.roomTypeTxtEm);
         txtRoomType.setText("Room Type : "+rooms.get(position).getRoomType());
@@ -99,19 +99,21 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
 
         });
         Button deleteButton=(Button) cardView.findViewById(R.id.btnDeleteEm);
-
+        populateReservedRooms(rooms.get(position).getId());
         deleteButton.setOnClickListener(view -> {
-            populateReservedRooms(rooms.get(position).getId());
+
             if(size==0) {
+                Toast.makeText(context, "deleted room!",
+                        Toast.LENGTH_LONG).show();
               //  deleteRoom(rooms.get(position).getId());
-                rooms.remove(position);
+              /*  rooms.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, rooms.size());
-                holder.itemView.setVisibility(View.GONE);
+                holder.itemView.setVisibility(View.GONE);*/
             }
             else {
                 Toast.makeText(context, "this room is reserved now you can't delete it!",
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_LONG).show();
             }
         });
 
@@ -136,6 +138,8 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
                                 conflictDeleted.add(id+"");
                             }
                             size=conflictDeleted.size();
+                            Toast.makeText(context, "size = "+conflictDeleted.size(),
+                                    Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

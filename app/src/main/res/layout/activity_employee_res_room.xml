@@ -107,6 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txtCheckOutEm"
+            android:entries="@array/roomTypeItems"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="2dp"
             android:minHeight="48dp"

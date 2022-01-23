@@ -58,7 +58,9 @@
 
                 android:text="Detail"
                 card_view:backgroundTint="#10B5E3"
+                card_view:iconTint="#FFFFFF"
                 tools:ignore="TouchTargetSizeCheck" />
+
             <Button
                 android:id="@+id/btnDeleteEm"
                 android:layout_width="wrap_content"
@@ -68,6 +70,7 @@
                 android:minHeight="48dp"
                 android:text="Delete"
                 card_view:backgroundTint="#10B5E3"
+                card_view:iconTint="#FFFFFF"
                 tools:ignore="TouchTargetSizeCheck" />
 
 
