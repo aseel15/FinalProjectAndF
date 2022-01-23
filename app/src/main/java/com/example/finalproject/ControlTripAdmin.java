@@ -135,7 +135,10 @@ public class ControlTripAdmin extends AppCompatActivity implements NavigationVie
                 intent=new Intent(ControlTripAdmin.this, EmployeeResRoom.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_services_a:
+            case R.id.nav_addroom_a:
+                intent=new Intent(ControlTripAdmin.this, AddRoom.class);
+                startActivity(intent);
+                break;            case R.id.nav_services_a:
                 intent=new Intent(ControlTripAdmin.this, AcceptServiceByEmployee.class);
                 startActivity(intent);
                 break;

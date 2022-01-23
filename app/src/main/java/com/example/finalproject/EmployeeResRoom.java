@@ -391,6 +391,10 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
                 intent=new Intent(EmployeeResRoom.this, EmployeeResRoom.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_addroom_a:
+                intent=new Intent(EmployeeResRoom.this, AddRoom.class);
+                startActivity(intent);
+                break;
             case R.id.nav_services_a:
                 intent=new Intent(EmployeeResRoom.this, AcceptServiceByEmployee.class);
                 startActivity(intent);

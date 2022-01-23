@@ -128,6 +128,10 @@ public class AcceptServiceByEmployee extends AppCompatActivity implements Naviga
                 intent=new Intent(AcceptServiceByEmployee.this, EmployeeResRoom.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_addroom_a:
+                intent=new Intent(AcceptServiceByEmployee.this, AddRoom.class);
+                startActivity(intent);
+                break;
             case R.id.nav_services_a:
                 intent=new Intent(AcceptServiceByEmployee.this, AcceptServiceByEmployee.class);
                 startActivity(intent);

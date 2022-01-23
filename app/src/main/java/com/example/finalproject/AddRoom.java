@@ -48,7 +48,7 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
         edtPrice=findViewById(R.id.PriceAdded);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Insert Trip");
+        getSupportActionBar().setTitle("Insert Room");
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_Drawer_Open, R.string.navigation_Drawer_Close);
         drawerLayout.addDrawerListener(toggle);
@@ -149,6 +149,10 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
 
             case R.id.nav_home_a:
                 intent=new Intent(AddRoom.this, EmployeeResRoom.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_addroom_a:
+                intent=new Intent(AddRoom.this, AddRoom.class);
                 startActivity(intent);
                 break;
             case R.id.nav_services_a:

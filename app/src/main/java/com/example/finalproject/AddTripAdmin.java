@@ -181,6 +181,10 @@ public class AddTripAdmin extends AppCompatActivity implements NavigationView.On
                 intent=new Intent(AddTripAdmin.this, EmployeeResRoom.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_addroom_a:
+                intent=new Intent(AddTripAdmin.this, AddRoom.class);
+                startActivity(intent);
+                break;
             case R.id.nav_services_a:
                 intent=new Intent(AddTripAdmin.this, AcceptServiceByEmployee.class);
                 startActivity(intent);
@@ -206,4 +210,6 @@ public class AddTripAdmin extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

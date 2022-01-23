@@ -128,6 +128,10 @@ public class addPersonAdmin extends AppCompatActivity implements NavigationView.
                 intent=new Intent(addPersonAdmin.this, EmployeeResRoom.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_addroom_a:
+                intent=new Intent(addPersonAdmin.this, AddRoom.class);
+                startActivity(intent);
+                break;
             case R.id.nav_services_a:
                 intent=new Intent(addPersonAdmin.this, AcceptServiceByEmployee.class);
                 startActivity(intent);

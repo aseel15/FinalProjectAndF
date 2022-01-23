@@ -159,6 +159,10 @@ public class AllUser extends AppCompatActivity implements NavigationView.OnNavig
                 intent=new Intent(AllUser.this, EmployeeResRoom.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_addroom_a:
+                intent=new Intent(AllUser.this, AddRoom.class);
+                startActivity(intent);
+                break;
             case R.id.nav_services_a:
                 intent=new Intent(AllUser.this, AcceptServiceByEmployee.class);
                 startActivity(intent);
