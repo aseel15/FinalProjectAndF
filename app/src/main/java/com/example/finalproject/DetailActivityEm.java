@@ -216,7 +216,6 @@ public class DetailActivityEm extends AppCompatActivity {
                                 int user= jsonObject.getInt("id");
                                 userIds.add(user);
                             }
-                            Toast.makeText(DetailActivityEm.this, userIdList.toString(),Toast.LENGTH_SHORT).show();
                             String s = String.valueOf(edtUserId.getText());
                             if(s.isEmpty())
                                 Toast.makeText(DetailActivityEm.this, "Enter The User Id",
@@ -258,7 +257,6 @@ public class DetailActivityEm extends AppCompatActivity {
         });
         queue.add(request);
     }
-
     public void btnEnterOnClick(View view) {
         populateUser();
 
