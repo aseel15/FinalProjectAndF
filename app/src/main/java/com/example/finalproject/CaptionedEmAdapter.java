@@ -81,7 +81,7 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
         CardView cardView = holder.cardView;
         ImageView img = (ImageView) cardView.findViewById(R.id.imageEm);
         Glide.with(context).load(rooms.get(position).getImageURL()).into(img);
-        Toast.makeText(context,rooms.get(position).getImageURL(),Toast.LENGTH_SHORT).show();
+       // Toast.makeText(context,rooms.get(position).getImageURL(),Toast.LENGTH_SHORT).show();
         TextView txtRoomType = (TextView)cardView.findViewById(R.id.roomTypeTxtEm);
         txtRoomType.setText("Room Type : "+rooms.get(position).getRoomType());
 
@@ -100,27 +100,17 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
 
         });
         Button deleteButton=(Button) cardView.findViewById(R.id.btnDeleteEm);
-        populateReservedRooms(rooms.get(position).getId());
-        deleteButton.setOnClickListener(view -> {
 
-            if(size==0) {
-                deleteRoom(rooms.get(position).getId());
-                rooms.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, rooms.size());
-                holder.itemView.setVisibility(View.GONE);
-            }
-            else {
-                Toast.makeText(context, "this room is reserved now you can't delete it!",
-                        Toast.LENGTH_LONG).show();
-            }
+        deleteButton.setOnClickListener(view -> {
+            populateReservedRooms(rooms.get(position).getId(),position);
         });
 
 
     }
-    public void populateReservedRooms(int roomId){
+    public void populateReservedRooms(int roomId, int position){
+        conflictDeleted=new ArrayList<>();
         String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        String BASE_URL = "http://10.0.2.2:80/FinalProject/selectRRoomsAfterNow.php?roomsID=" + roomId+"&check_Out="+date;
+        String BASE_URL = "http://10.0.2.2:80/FinalProject/selectRRoomsAfterNow.php?check_Out="+date;
         RequestQueue queue = Volley.newRequestQueue(context);
 
 
@@ -136,7 +126,23 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
                                 int id = jsonObject.getInt("roomsID");
                                 conflictDeleted.add(id+"");
                             }
-                            size=conflictDeleted.size();
+                            Toast.makeText(context, conflictDeleted.toString(),
+                                    Toast.LENGTH_LONG).show();
+                            if(conflictDeleted.contains(rooms.get(position).getId()+"")){
+                                Toast.makeText(context, "this room is reserved now you can't delete it!",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                deleteRoom(rooms.get(position).getId());
+                                rooms.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, rooms.size());
+                                Toast.makeText(context, "delete"+position,
+                                        Toast.LENGTH_LONG).show();
+                            }
+
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

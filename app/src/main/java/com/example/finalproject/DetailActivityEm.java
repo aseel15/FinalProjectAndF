@@ -34,7 +34,7 @@ import java.util.Map;
 public class DetailActivityEm extends AppCompatActivity {
 
     private RequestQueue queue;
-    private static final String BASE_URL = "http://10.0.2.2:80/RoomDataBase/getUserId.php";
+    private static final String BASE_URL = "http://10.0.2.2:80/FinalProject/getUserId.php";
     String dateCheckIn;
     String dateCheckOut;
     List<Room> roomsList;
@@ -65,8 +65,9 @@ public class DetailActivityEm extends AppCompatActivity {
             dateCheckOut = intent.getStringExtra("checkOutDate");
             roomNumber = Integer.parseInt(item);
             roomsList = (List<Room>) getIntent().getSerializableExtra("arrayList");
-        }populateData(roomNumber);
-        populateUser();
+        }
+        populateData(roomNumber);
+        //populateUser();
     }
     @Override
     protected void onSaveInstanceState(Bundle outState){
@@ -192,12 +193,14 @@ public class DetailActivityEm extends AppCompatActivity {
     public void btnReserveOnClick(View view) {
         if(dateCheckIn.isEmpty()||dateCheckOut.isEmpty()){
             Toast.makeText(DetailActivityEm.this,
-                    "You should enter check in & check out date", Toast.LENGTH_SHORT).show();
+                    "You should enter check in & check out date!", Toast.LENGTH_SHORT).show();
         }
         else{
 
             //call method to post it to database
             postData();
+            Toast.makeText(DetailActivityEm.this,
+                    "Successful Reservation", Toast.LENGTH_SHORT).show();
         }
     }
     public void populateUser(){
@@ -213,7 +216,31 @@ public class DetailActivityEm extends AppCompatActivity {
                                 int user= jsonObject.getInt("id");
                                 userIds.add(user);
                             }
-                           // populateUserToList();
+                            Toast.makeText(DetailActivityEm.this, userIdList.toString(),Toast.LENGTH_SHORT).show();
+                            String s = String.valueOf(edtUserId.getText());
+                            if(s.isEmpty())
+                                Toast.makeText(DetailActivityEm.this, "Enter The User Id",
+                                        Toast.LENGTH_SHORT).show();
+                            else {
+                                int uId = Integer.parseInt(s);
+                                boolean flag = false;
+                                for (int i = 0; i < userIds.size(); i++) {
+                                    if (uId == userIds.get(i)) {
+                                        idAdded = uId;
+                                        flag = true;
+                                        break;
+                                    }
+                                }
+                                if (!flag) {
+                                    Toast.makeText(DetailActivityEm.this,"there is no user has this id",
+                                            Toast.LENGTH_SHORT).show();
+                                    //add user
+                                    Intent intent=new Intent(DetailActivityEm.this,addPersonAdmin.class);
+                                    startActivity(intent);
+
+                                }
+                            }
+
 
                         } catch (JSONException e) {
 
@@ -236,36 +263,9 @@ public class DetailActivityEm extends AppCompatActivity {
     }
 
 
-    public void readText(){
 
-    }
     public void btnEnterOnClick(View view) {
-
-
-        String s = String.valueOf(edtUserId.getText());
-        if(s.isEmpty())
-            Toast.makeText(DetailActivityEm.this, "Enter The User Id",
-                    Toast.LENGTH_SHORT).show();
-        else {
-            int uId = Integer.parseInt(s);
-            boolean flag = false;
-            for (int i = 0; i < userIds.size(); i++) {
-                if (uId == userIds.get(i)) {
-                    idAdded = uId;
-                    flag = true;
-
-                    break;
-                }
-            }
-            if (!flag) {
-                Toast.makeText(DetailActivityEm.this,"there is no user has this id",
-                        Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(DetailActivityEm.this,addPersonAdmin.class);
-                startActivity(intent);
-                //add user
-            }
-        }
-
+        populateUser();
 
     }
 }
