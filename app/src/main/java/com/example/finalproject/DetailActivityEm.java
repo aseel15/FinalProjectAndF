@@ -258,11 +258,6 @@ public class DetailActivityEm extends AppCompatActivity {
         });
         queue.add(request);
     }
-    public ArrayList<Integer>populateUserToList(){
-        return userIds;
-    }
-
-
 
     public void btnEnterOnClick(View view) {
         populateUser();
