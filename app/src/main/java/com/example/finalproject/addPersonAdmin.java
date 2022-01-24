@@ -137,7 +137,7 @@ public class addPersonAdmin extends AppCompatActivity implements NavigationView.
                 startActivity(intent);
                 break;
             case R.id.nav_trips_a:
-                intent=new Intent(addPersonAdmin.this, TripList.class);
+                intent=new Intent(addPersonAdmin.this, ControlTripAdmin.class);
                 startActivity(intent);
                 break;
 
@@ -150,7 +150,10 @@ public class addPersonAdmin extends AppCompatActivity implements NavigationView.
                 intent=new Intent(addPersonAdmin.this, addPersonAdmin.class);
                 startActivity(intent);
                 break;
-
+            case R.id.nav_logout_a:
+                intent=new Intent(addPersonAdmin.this, LogOut.class);
+                startActivity(intent);
+                break;
 
 
         }

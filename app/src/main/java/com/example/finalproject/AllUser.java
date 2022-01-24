@@ -168,7 +168,7 @@ public class AllUser extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(intent);
                 break;
             case R.id.nav_trips_a:
-                intent=new Intent(AllUser.this, TripList.class);
+                intent=new Intent(AllUser.this, ControlTripAdmin.class);
                 startActivity(intent);
                 break;
 
@@ -181,7 +181,10 @@ public class AllUser extends AppCompatActivity implements NavigationView.OnNavig
                 intent=new Intent(AllUser.this, addPersonAdmin.class);
                 startActivity(intent);
                 break;
-
+            case R.id.nav_logout_a:
+                intent=new Intent(AllUser.this, LogOut.class);
+                startActivity(intent);
+                break;
 
 
         }

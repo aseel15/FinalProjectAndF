@@ -137,7 +137,7 @@ public class AcceptServiceByEmployee extends AppCompatActivity implements Naviga
                 startActivity(intent);
                 break;
             case R.id.nav_trips_a:
-                intent=new Intent(AcceptServiceByEmployee.this, TripList.class);
+                intent=new Intent(AcceptServiceByEmployee.this, ControlTripAdmin.class);
                 startActivity(intent);
                 break;
 
@@ -151,7 +151,10 @@ public class AcceptServiceByEmployee extends AppCompatActivity implements Naviga
                 startActivity(intent);
                 break;
 
-
+            case R.id.nav_logout_a:
+                intent=new Intent(AcceptServiceByEmployee.this, LogOut.class);
+                startActivity(intent);
+                break;
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);

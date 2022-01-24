@@ -260,6 +260,8 @@ public class DetailActivityEm extends AppCompatActivity {
             if (!flag) {
                 Toast.makeText(DetailActivityEm.this,"there is no user has this id",
                         Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(DetailActivityEm.this,addPersonAdmin.class);
+                startActivity(intent);
                 //add user
             }
         }

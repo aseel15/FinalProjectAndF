@@ -56,7 +56,7 @@
         android:id="@+id/ListTrip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="175dp"
         android:background="@color/zumthor"
         android:dividerHeight="10.0sp"></ListView>
@@ -71,5 +71,5 @@ android:layout_width="wrap_content"
 android:layout_height="match_parent"
 android:layout_gravity="start"
 app:headerLayout="@layout/nav_header"
-app:menu="@menu/customer_menu" />
+app:menu="@menu/admin_menu" />
     </androidx.drawerlayout.widget.DrawerLayout>

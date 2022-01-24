@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_room);
         recycler = findViewById(R.id.room_recycler);
         checkIn=findViewById(R.id.edtCheckIn);
@@ -404,7 +406,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 intent=new Intent(MainActivity.this, APIActivity.class);
                 startActivity(intent);
                 break;
-
+            case R.id.nav_logout:
+                intent=new Intent(MainActivity.this, LogOut.class);
+                startActivity(intent);
+                break;
 
 
         }

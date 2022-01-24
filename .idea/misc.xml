@@ -5,14 +5,10 @@
       <map>
         <entry key="..\:/Users/DELL/AndroidStudioProjects/FinalProjectAndroid-master/FinalProjectAndroid-master/app/src/main/res/layout/activity_accept_service_by_employee.xml" value="0.178125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/FinalProjectAndroid-master/FinalProjectAndroid-master/app/src/main/res/layout/activity_add_person.xml" value="0.178125" />
-        <entry key="..\:/Users/DELL/AndroidStudioProjects/FinalProjectAndroid-master/FinalProjectAndroid-master/app/src/main/res/layout/activity_add_room.xml" value="0.1109375" />
-        <entry key="..\:/Users/DELL/AndroidStudioProjects/FinalProjectAndroid-master/FinalProjectAndroid-master/app/src/main/res/layout/activity_add_trip_admin.xml" value="0.178125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/FinalProjectAndroid-master/FinalProjectAndroid-master/app/src/main/res/layout/activity_all_user.xml" value="0.178125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/FinalProjectAndroid-master/FinalProjectAndroid-master/app/src/main/res/layout/activity_employee_res_room.xml" value="0.178125" />
-        <entry key="..\:/Users/DELL/AndroidStudioProjects/FinalProjectAndroid-master/FinalProjectAndroid-master/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/FinalProjectAndroid-master/FinalProjectAndroid-master/app/src/main/res/layout/activity_profile.xml" value="0.178125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/FinalProjectAndroid-master/FinalProjectAndroid-master/app/src/main/res/layout/activity_room.xml" value="0.178125" />
-        <entry key="..\:/Users/DELL/AndroidStudioProjects/FinalProjectAndroid-master/FinalProjectAndroid-master/app/src/main/res/layout/card_caption_em.xml" value="0.178125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/FinalProjectAndroid-master/FinalProjectAndroid-master/app/src/main/res/menu/admin_menu.xml" value="0.264" />
         <entry key="..\:/Users/zhdto/AndroidStudioProjects/FinalProject/app/src/main/res/drawable/ic_toiletries.xml" value="0.1" />
         <entry key="..\:/Users/zhdto/AndroidStudioProjects/FinalProject/app/src/main/res/font/amarante.xml" value="0.14351851851851852" />
@@ -38,6 +34,13 @@
         <entry key="..\:/Users/zhdto/AndroidStudioProjects/FinalProject/app/src/main/res/layout/card_captioned_image.xml" value="0.1640625" />
         <entry key="..\:/Users/zhdto/AndroidStudioProjects/FinalProject/app/src/main/res/layout/custom_layout_dropdown.xml" value="0.1640625" />
         <entry key="..\:/Users/zhdto/AndroidStudioProjects/FinalProject/app/src/main/res/layout/styling.xml" value="0.16197916666666667" />
+        <entry key="..\:/Users/zhdto/AndroidStudioProjects/FinalProject1/app/src/main/res/layout/activity_add_trip_admin.xml" value="0.1" />
+        <entry key="..\:/Users/zhdto/AndroidStudioProjects/FinalProject1/app/src/main/res/layout/activity_captioned_image_api.xml" value="0.1" />
+        <entry key="..\:/Users/zhdto/AndroidStudioProjects/FinalProject1/app/src/main/res/layout/activity_control_trip_admin.xml" value="0.1" />
+        <entry key="..\:/Users/zhdto/AndroidStudioProjects/FinalProject1/app/src/main/res/layout/activity_profile.xml" value="0.1" />
+        <entry key="..\:/Users/zhdto/AndroidStudioProjects/FinalProject1/app/src/main/res/layout/activity_trips.xml" value="0.1" />
+        <entry key="..\:/Users/zhdto/AndroidStudioProjects/FinalProject1/app/src/main/res/menu/admin_menu.xml" value="0.1" />
+        <entry key="..\:/Users/zhdto/AndroidStudioProjects/FinalProject1/app/src/main/res/menu/customer_menu.xml" value="0.1640625" />
       </map>
     </option>
   </component>

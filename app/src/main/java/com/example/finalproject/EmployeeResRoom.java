@@ -159,7 +159,7 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
         queue.add(request);
     }
     public void removeDeadLineCheckOut(){
-        String url="http://10.0.2.2:80/RoomDataBase/deleteReservedRoom.php";
+        String url="http://10.0.2.2:80/FinalProject/deleteReservedRoom.php";
         RequestQueue queue = Volley.newRequestQueue(this);
         String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         StringRequest request=new StringRequest(Request.Method.POST, url,
@@ -393,7 +393,7 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
                 startActivity(intent);
                 break;
             case R.id.nav_trips_a:
-                intent=new Intent(EmployeeResRoom.this, TripList.class);
+                intent=new Intent(EmployeeResRoom.this, ControlTripAdmin.class);
                 startActivity(intent);
                 break;
 
@@ -404,6 +404,11 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
 
             case R.id.nav_add_Person_a:
                 intent=new Intent(EmployeeResRoom.this, addPersonAdmin.class);
+                startActivity(intent);
+                break;
+
+            case R.id.nav_logout_a:
+                intent=new Intent(EmployeeResRoom.this, LogOut.class);
                 startActivity(intent);
                 break;
 

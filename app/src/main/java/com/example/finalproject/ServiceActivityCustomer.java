@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,15 +50,19 @@ public class ServiceActivityCustomer extends AppCompatActivity implements Naviga
     String roomIdChosen;
     TextView textView;
     String n=String.valueOf(2);
-    private String BASE_URL = "http://10.0.2.2:80/FinalProject/getRoomId.php?userId=" + n;
     private RequestQueue queue;
     Toolbar toolbar;
     private DrawerLayout drawerLayout;
     NavigationView navigationView;
+    SharedPreferences preferences;
+    int userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_customer);
+        preferences=getSharedPreferences("session",MODE_PRIVATE);
+        userId=preferences.getInt("login",-1);
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Services");
@@ -150,6 +155,8 @@ public class ServiceActivityCustomer extends AppCompatActivity implements Naviga
         return serviceItems;
     }
     public void getRoomId(){
+        String BASE_URL = "http://10.0.2.2:80/FinalProject/getRoomId.php?userId=" + userId;
+
         roomIdList.add("select");
         StringRequest request = new StringRequest(Request.Method.GET, BASE_URL,
 
@@ -210,7 +217,7 @@ public class ServiceActivityCustomer extends AppCompatActivity implements Naviga
                 //by shared preference
 
                 params.put("roomId", roomIdChosen+"");
-                params.put("userId", n+"");
+                params.put("userId", String.valueOf(userId));
                 params.put("serviceName",selectedServices.toString());
                 params.put("price", "6");
                 return params;
@@ -265,7 +272,10 @@ public class ServiceActivityCustomer extends AppCompatActivity implements Naviga
                 startActivity(intent);
                 break;
 
-
+            case R.id.nav_logout:
+                intent=new Intent(ServiceActivityCustomer.this, LogOut.class);
+                startActivity(intent);
+                break;
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);

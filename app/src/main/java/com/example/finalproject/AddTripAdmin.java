@@ -34,13 +34,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddTripAdmin extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class AddTripAdmin extends AppCompatActivity {
 
     private EditText edtTripName, edtPrice, edtDescription;
     private TextView edtDate;
-    Toolbar toolbar;
-    private DrawerLayout drawerLayout;
-    NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,20 +47,6 @@ public class AddTripAdmin extends AppCompatActivity implements NavigationView.On
         edtPrice = findViewById(R.id.Price);
         edtDescription=findViewById(R.id.Description);
 
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Insert Trip");
-        drawerLayout = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_Drawer_Open, R.string.navigation_Drawer_Close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        if (savedInstanceState!=null)
-            onRestoreInstanceState(savedInstanceState);
 
         edtDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,44 +155,6 @@ public class AddTripAdmin extends AppCompatActivity implements NavigationView.On
     }
 
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Intent intent;
-        switch (item.getItemId()) {
-
-            case R.id.nav_home_a:
-                intent=new Intent(AddTripAdmin.this, EmployeeResRoom.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_addroom_a:
-                intent=new Intent(AddTripAdmin.this, AddRoom.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_services_a:
-                intent=new Intent(AddTripAdmin.this, AcceptServiceByEmployee.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_trips_a:
-                intent=new Intent(AddTripAdmin.this, TripList.class);
-                startActivity(intent);
-                break;
-
-            case R.id.nav_persons_a:
-                intent=new Intent(AddTripAdmin.this, AllUser.class);
-                startActivity(intent);
-                break;
-
-            case R.id.nav_add_Person_a:
-                intent=new Intent(AddTripAdmin.this, addPersonAdmin.class);
-                startActivity(intent);
-                break;
-
-
-
-        }
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
 
 }

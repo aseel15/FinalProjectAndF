@@ -160,7 +160,10 @@ public class TripList extends AppCompatActivity implements NavigationView.OnNavi
                 intent=new Intent(TripList.this, APIActivity.class);
                 startActivity(intent);
                 break;
-
+            case R.id.nav_logout:
+                intent=new Intent(TripList.this, LogOut.class);
+                startActivity(intent);
+                break;
 
 
         }

@@ -34,32 +34,33 @@ public class SignIn extends AppCompatActivity {
         edtPassword=findViewById(R.id.Password);
         edtRemember=findViewById(R.id.checkBox1);
 
-
-    }
-
-
-    @Override
-    protected void onStart(){
-        super.onStart();
         SharedPreferences preferences=getSharedPreferences("session",MODE_PRIVATE);
         int session=preferences.getInt("login",-1);
-//        if (session!=-1){
-//            Intent intent=new Intent(SignIn.this,Registration.class);
-//            startActivity(intent);
-//        }
-         {
-            SharedPreferences remember = getSharedPreferences("checkBox", MODE_PRIVATE);
-            String rem = remember.getString("remember", "");
-            if (rem.equals("true")) {
-                String email = remember.getString("Email", "");
-                String pass = remember.getString("password", "");
-                edtEmail.setText(email);
-                edtPassword.setText(pass);
-
+        int role=preferences.getInt("role",-1);
+        if (session!=-1){
+            Intent intent;
+            if(role==0){
+                intent = new Intent(SignIn.this, MainActivity.class);
             }
+            else{
+                intent = new Intent(SignIn.this, EmployeeResRoom.class);
+            }
+            startActivity(intent);
         }
 
+        SharedPreferences remember = getSharedPreferences("checkBox", MODE_PRIVATE);
+        String rem = remember.getString("remember", "");
+        if (rem.equals("true")) {
+            String email = remember.getString("Email", "");
+            String pass = remember.getString("password", "");
+            edtEmail.setText(email);
+            edtPassword.setText(pass);
+
+        }
+
+
     }
+
 
 
     public void btnClkForRegister(View view) {
@@ -67,7 +68,6 @@ public class SignIn extends AppCompatActivity {
         startActivity(intent);
 
     }
-
 
 
 
@@ -119,21 +119,19 @@ public class SignIn extends AppCompatActivity {
                         SharedPreferences session = getSharedPreferences("session",MODE_PRIVATE);
                         SharedPreferences.Editor editor = session.edit();
                         editor.putInt("login", id);
+                        editor.putInt("role", role);
+
                         editor.apply();
 
+                        Intent intent;
                         if (role==0){
-                            Intent intent=new Intent(SignIn.this,Registration.class);
-                            startActivity(intent);
-                            Toast.makeText(SignIn.this,
-                                    jsonObject.getString("id"), Toast.LENGTH_SHORT).show();
+                            intent = new Intent(SignIn.this, MainActivity.class);
 
                         }
                         else {
-                            Toast.makeText(SignIn.this,
-                                    "you are admin", Toast.LENGTH_SHORT).show();
-
+                            intent = new Intent(SignIn.this, EmployeeResRoom.class);
                         }
-
+                        startActivity(intent);
 
 
                     }

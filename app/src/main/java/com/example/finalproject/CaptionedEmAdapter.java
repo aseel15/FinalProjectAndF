@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.bluetooth.BluetoothAssignedNumbers;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -80,7 +81,7 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
         CardView cardView = holder.cardView;
         ImageView img = (ImageView) cardView.findViewById(R.id.imageEm);
         Glide.with(context).load(rooms.get(position).getImageURL()).into(img);
-
+        Toast.makeText(context,rooms.get(position).getImageURL(),Toast.LENGTH_SHORT).show();
         TextView txtRoomType = (TextView)cardView.findViewById(R.id.roomTypeTxtEm);
         txtRoomType.setText("Room Type : "+rooms.get(position).getRoomType());
 

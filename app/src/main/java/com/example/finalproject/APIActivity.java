@@ -1,14 +1,15 @@
 package com.example.finalproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,10 +36,15 @@ public class APIActivity extends AppCompatActivity implements NavigationView.OnN
     Toolbar toolbar;
     private DrawerLayout drawerLayout;
     NavigationView navigationView;
-
+    SharedPreferences preferences;
+    private int user_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        preferences=getSharedPreferences("session",MODE_PRIVATE);
+        user_id=preferences.getInt("login",-1);
+
         setContentView(R.layout.api_activity_main);
         recycler=findViewById(R.id.api_recycler);
         imagesList=new ArrayList<>();
@@ -89,8 +95,10 @@ public class APIActivity extends AppCompatActivity implements NavigationView.OnN
 
                         recycler.setLayoutManager(new LinearLayoutManager(APIActivity.this));
                         CaptionImageAPI adapter = new CaptionImageAPI(APIActivity.this, imagesList);
-
+                        adapter.setType("Decor");
+                        adapter.setUserId(user_id);
                         recycler.setAdapter(adapter);
+
                     }
                 }, new Response.ErrorListener() {
 
@@ -134,6 +142,8 @@ public class APIActivity extends AppCompatActivity implements NavigationView.OnN
 
                         recycler.setLayoutManager(new LinearLayoutManager(APIActivity.this));
                         CaptionImageAPI adapter = new CaptionImageAPI(APIActivity.this, imagesList);
+                        adapter.setType("Cake");
+                        adapter.setUserId(user_id);
 
                         recycler.setAdapter(adapter);
                     }
@@ -180,6 +190,8 @@ public class APIActivity extends AppCompatActivity implements NavigationView.OnN
 
                         recycler.setLayoutManager(new LinearLayoutManager(APIActivity.this));
                         CaptionImageAPI adapter = new CaptionImageAPI(APIActivity.this, imagesList);
+                        adapter.setType("Food");
+                        adapter.setUserId(user_id);
 
                         recycler.setAdapter(adapter);
                     }
@@ -222,7 +234,10 @@ public class APIActivity extends AppCompatActivity implements NavigationView.OnN
                 intent=new Intent(APIActivity.this, APIActivity.class);
                 startActivity(intent);
                 break;
-
+            case R.id.nav_logout:
+                intent=new Intent(APIActivity.this, LogOut.class);
+                startActivity(intent);
+                break;
 
 
         }

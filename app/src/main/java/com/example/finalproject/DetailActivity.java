@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -34,11 +35,15 @@ public class DetailActivity extends AppCompatActivity {
     int roomNumber;
     TextView textTry;
     int days;
-
+    SharedPreferences preferences;
+    int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       preferences=getSharedPreferences("session",MODE_PRIVATE);
+        userId=preferences.getInt("login",-1);
+
         setContentView(R.layout.activity_detail);
         Intent intent = getIntent();
         textTry=findViewById(R.id.txtTry);
@@ -168,7 +173,7 @@ public class DetailActivity extends AppCompatActivity {
 
                 params.put("roomsID", roomNumber+"");
                 //by shared preference
-                params.put("userId", "13");
+                params.put("userId", String.valueOf(userId));
                 params.put("check_In", dateCheckIn);
                 params.put("check_Out",dateCheckOut);
                 params.put("totalPrice",(days*room.getPrice())+"");

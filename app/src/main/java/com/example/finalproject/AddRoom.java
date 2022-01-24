@@ -181,7 +181,7 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(intent);
                 break;
             case R.id.nav_trips_a:
-                intent=new Intent(AddRoom.this, TripList.class);
+                intent=new Intent(AddRoom.this, ControlTripAdmin.class);
                 startActivity(intent);
                 break;
 
@@ -194,7 +194,10 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
                 intent=new Intent(AddRoom.this, addPersonAdmin.class);
                 startActivity(intent);
                 break;
-
+            case R.id.nav_logout_a:
+                intent=new Intent(AddRoom.this, LogOut.class);
+                startActivity(intent);
+                break;
 
 
         }

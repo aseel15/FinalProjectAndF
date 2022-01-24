@@ -31,15 +31,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DeleteReserveTripAdmin extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class DeleteReserveTripAdmin extends AppCompatActivity {
     private TextView edtName,edtDate,edtDesc,edtPrice,edtAdduser;
     private EditText edtNumber,edtID;
     private String tripData;
     private Trip tripObj;
     private int user_id,tripID,totalPrice;
-    Toolbar toolbar;
-    private DrawerLayout drawerLayout;
-    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,18 +49,7 @@ public class DeleteReserveTripAdmin extends AppCompatActivity implements Navigat
         edtNumber=findViewById(R.id.Number);
         edtID=findViewById(R.id.UserID);
         edtAdduser=findViewById(R.id.addUser);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Cancel Trip");
-        drawerLayout = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_Drawer_Open, R.string.navigation_Drawer_Close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-       if (savedInstanceState!=null){
+            if (savedInstanceState!=null){
             onRestoreInstanceState(savedInstanceState);
         }
        else{
@@ -339,8 +325,5 @@ public class DeleteReserveTripAdmin extends AppCompatActivity implements Navigat
         startActivity(intent);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
-    }
+
 }

@@ -264,7 +264,10 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 intent=new Intent(Profile.this, APIActivity.class);
                 startActivity(intent);
                 break;
-
+            case R.id.nav_logout:
+                intent=new Intent(Profile.this, LogOut.class);
+                startActivity(intent);
+                break;
 
 
         }
