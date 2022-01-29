@@ -122,7 +122,7 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
                                 int numOfBeds = jsonObject.getInt("numOfBeds");
                                 String roomSize = jsonObject.getString("roomSize");
                                 String imageName = jsonObject.getString("imageName");
-                                Room room = new Room(id, roomType, price, bedType, numOfBeds, roomSize, imageName);
+                                Room room = new Room(id, roomType, price, bedType, numOfBeds, roomSize, imageName,"Vacant and Readr");
                                 rooms.add(room);
 
                             }
@@ -161,7 +161,7 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
     public void removeDeadLineCheckOut(){
         String url="http://10.0.2.2:80/FinalProject/deleteReservedRoom.php";
         RequestQueue queue = Volley.newRequestQueue(this);
-        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         StringRequest request=new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -293,6 +293,16 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
 
 
     }
+    public Date formatDateBase(String date){
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+        Date d1=null;
+        try {
+            d1 = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return d1;
+    }
 
 
     public void btnNextOnClick(View view) {
@@ -315,8 +325,8 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
                     for (int i = 0; i < rooms.size(); i++) {
                         if (reservedRoomHashMap.containsKey(rooms.get(i).getId())) {
                             ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
-                            Date inReservedDate = formatDate(reservedRoom.getCheck_In());
-                            Date outReservedDate = formatDate(reservedRoom.getCheck_Out());
+                            Date inReservedDate = formatDateBase(reservedRoom.getCheck_In());
+                            Date outReservedDate = formatDateBase(reservedRoom.getCheck_Out());
 
                             if (inUserDate.compareTo(outReservedDate) > 0 || outUserDate.compareTo(inReservedDate) < 0) {
                                 if (rooms.get(i).getRoomType().equalsIgnoreCase(roomTypeTxt)) {
@@ -345,8 +355,8 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
                     for (int i = 0; i < rooms.size(); i++) {
                         if (reservedRoomHashMap.containsKey(rooms.get(i).getId())) {
                             ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
-                            Date inReservedDate = formatDate(reservedRoom.getCheck_In());
-                            Date outReservedDate = formatDate(reservedRoom.getCheck_Out());
+                            Date inReservedDate = formatDateBase(reservedRoom.getCheck_In());
+                            Date outReservedDate = formatDateBase(reservedRoom.getCheck_Out());
 
                             if (inUserDate.compareTo(outReservedDate) > 0 || outUserDate.compareTo(inReservedDate) < 0) {
                                 roomsFiltered.add(rooms.get(i));

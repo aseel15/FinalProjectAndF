@@ -147,9 +147,24 @@ public class DetailActivityEm extends AppCompatActivity {
         int day= (int) (timeDif / (1000 * 60 * 60* 24));
         return day;
     }
+    public String formatDateString(String date) {
+        String[] split = date.split("-");
+        String readyFormat = "";
+        for (int i = split.length - 1; i >= 0; i--) {
+            if (split[i].length() == 1)
+                split[i] = "0" + split[i];
+
+            readyFormat += split[i];
+            if (i != 0)
+                readyFormat += "-";
+        }
+        return readyFormat;
+    }
     public void postData(){
         String url="http://10.0.2.2:80/FinalProject/reserveRoom.php";
         RequestQueue queue = Volley.newRequestQueue(this);
+        String dateIn=formatDateString(dateCheckIn);
+        String dateOut=formatDateString(dateCheckOut);
         days=calculateDays();
         StringRequest request=new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -178,8 +193,8 @@ public class DetailActivityEm extends AppCompatActivity {
                 params.put("roomsID", roomNumber+"");
                 //by shared preference
                 params.put("userId", idAdded+"");
-                params.put("check_In", dateCheckIn);
-                params.put("check_Out",dateCheckOut);
+                params.put("check_In", dateIn);
+                params.put("check_Out",dateOut);
                 params.put("totalPrice",(days*room.getPrice())+"");
 
                 return params;

@@ -11,6 +11,7 @@ public class Room implements Serializable {
     private int numOfBeds;
     private String roomSize;
     private String imageURL;
+    private String roomStatus;
     ArrayList<Room>roomArrayList=new ArrayList<>();
 
     public int getId() {
@@ -74,9 +75,15 @@ public class Room implements Serializable {
         this.imageURL = imageURL;
     }
 
+    public String getRoomStatus() {
+        return roomStatus;
+    }
 
+    public void setRoomStatus(String roomStatus) {
+        this.roomStatus = roomStatus;
+    }
 
-    public Room(int roomNumber, String roomType, int price, String bedType, int numOfBeds, String roomSize, String imageURL) {
+    public Room(int roomNumber, String roomType, int price, String bedType, int numOfBeds, String roomSize, String imageURL, String roomStatus) {
         this.id = roomNumber;
         this.roomType = roomType;
         this.price = price;
@@ -84,6 +91,7 @@ public class Room implements Serializable {
         this.numOfBeds = numOfBeds;
         this.roomSize = roomSize;
         this.imageURL= imageURL;
+        this.roomStatus=roomStatus;
     }
     public Room(String roomType, int price, String imgId){
         this.roomType=roomType;

@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class DetailActivity extends AppCompatActivity {
@@ -101,10 +102,24 @@ public class DetailActivity extends AppCompatActivity {
         arr.add("Price : "+room.getPrice()+"$");
         arr.add("Room Size : "+room.getRoomSize());
         arr.add("Bed Type : "+room.getBedType());
+        arr.add("Room Status : "+room.getRoomStatus());
         ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arr);
         listView.setAdapter(arrayAdapter);
 
 
+    }
+    public String formatDateString(String date) {
+        String[] split = date.split("-");
+        String readyFormat = "";
+        for (int i = split.length - 1; i >= 0; i--) {
+            if (split[i].length() == 1)
+                split[i] = "0" + split[i];
+
+            readyFormat += split[i];
+            if (i != 0)
+                readyFormat += "-";
+        }
+        return readyFormat;
     }
     public Date formatDate(String date){
         String[]split=date.split("-");
@@ -142,6 +157,9 @@ public class DetailActivity extends AppCompatActivity {
     public void postData(){
         String url="http://10.0.2.2:80/FinalProject/reserveRoom.php";
         days= calculateDays();
+
+        String dateIn=formatDateString(dateCheckIn);
+        String dateOut=formatDateString(dateCheckOut);
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request=new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -174,8 +192,8 @@ public class DetailActivity extends AppCompatActivity {
                 params.put("roomsID", roomNumber+"");
                 //by shared preference
                 params.put("userId", String.valueOf(userId));
-                params.put("check_In", dateCheckIn);
-                params.put("check_Out",dateCheckOut);
+                params.put("check_In", String.valueOf(dateIn));
+                params.put("check_Out",String.valueOf(dateOut));
                 params.put("totalPrice",(days*room.getPrice())+"");
 
                 return params;

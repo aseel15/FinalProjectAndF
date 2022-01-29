@@ -85,9 +85,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         queue1 = Volley.newRequestQueue(this);
         if (savedInstanceState!=null)
             onRestoreInstanceState(savedInstanceState);
+
+
         populateAllData();
         removeDeadLineCheckOut();
         populateReservedRooms();
+
 
 
 
@@ -126,14 +129,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 int numOfBeds = jsonObject.getInt("numOfBeds");
                                 String roomSize = jsonObject.getString("roomSize");
                                 String imageName = jsonObject.getString("imageName");
-                                Room room = new Room(id, roomType, price, bedType, numOfBeds, roomSize, imageName);
+
+                                Room room = new Room(id, roomType, price, bedType, numOfBeds, roomSize, imageName, "Vacant and Ready");
                                 rooms.add(room);
 
                             }
+
                             String dateCheckIn=checkIn.getText().toString();
                             String dateCheckOut=checkOut.getText().toString();
+                            //String comparedCheckOut=dateCheckOut.replaceAll("/","-");
+                           // populateReservedRooms();
+
+
+
                             recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                            com.example.finalproject.CaptionedImageAdapter adapter = new com.example.finalproject.CaptionedImageAdapter(MainActivity.this,rooms,dateCheckIn,dateCheckOut);
+                            CaptionedImageAdapter adapter = new CaptionedImageAdapter(MainActivity.this,rooms,dateCheckIn,dateCheckOut);
 
                             recycler.setAdapter(adapter);
 
@@ -162,10 +172,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         queue.add(request);
     }
+    public int calculateDays(String checkOutDate, String currentDate){
+        Date dateIn=formatDate(checkOutDate);
+        Date dateOut=formatDate(currentDate);
+        Long date1InMs = dateIn.getTime();
+        int date1Min=date1InMs.intValue();
+        Long date2InMs = dateOut.getTime();
+        int date2Min=date2InMs.intValue();
+        int timeDif=date2Min-date1Min;
+        int day= (int) (timeDif / (1000 * 60 * 60* 24));
+        return day;
+    }
     public void removeDeadLineCheckOut(){
-        String url="http://10.0.2.2:80/RoomDataBase/deleteReservedRoom.php";
+        String url="http://10.0.2.2:80/FinalProject/deleteReservedRoom.php";
         RequestQueue queue = Volley.newRequestQueue(this);
-        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         StringRequest request=new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -216,8 +237,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         int totalPrice=jsonObject.getInt("totalPrice");
                         reservedRoomHashMap.put(roomID,new ReservedRoom(roomID,check_In,check_Out));
                     }
-                    Toast.makeText(MainActivity.this, "tru",
+                    Toast.makeText(MainActivity.this, "the size "+reservedRoomHashMap.size(),
                             Toast.LENGTH_SHORT).show();
+                    /*String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                    Toast.makeText(MainActivity.this,"the roomReserved = "+rooms.toString(),Toast.LENGTH_SHORT).show();
+                    for(int i=0;i< rooms.size();i++)
+                        if(reservedRoomHashMap.containsKey(rooms.get(i).getId())){
+                           // Toast.makeText(MainActivity.this,"the room is on-change",Toast.LENGTH_SHORT).show();
+                            ReservedRoom reservedRoom=reservedRoomHashMap.get(rooms.get(i));
+                            Date checkOutDate=formatDate(reservedRoom.getCheck_Out());
+                            Date currentDateFormat=formatDate(currentDate);
+                            if(currentDateFormat.compareTo(checkOutDate)>0){
+                                int daysNumber=calculateDays(currentDate,reservedRoom.getCheck_In());
+                                if(daysNumber==1){
+                                    rooms.get(i).setRoomStatus("On-Change");
+
+                                }
+                                else
+                                    Toast.makeText(MainActivity.this,"the room is still reserved",Toast.LENGTH_SHORT).show();
+                            }
+                        }*/
                 } catch (JSONException e) {
                    // checkIn.setText(response);
                     e.printStackTrace();
@@ -300,6 +339,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
+    public Date formatDateBase(String date){
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+        Date d1=null;
+        try {
+            d1 = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return d1;
+    }
 
 
     public void btnNextOnClick(View view) {
@@ -313,6 +362,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(MainActivity.this, "You should enter the date",Toast.LENGTH_SHORT).show();
         }
         else {
+         //   String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
             Date inUserDate=formatDate(checkInTxt);
             Date outUserDate=formatDate(checkOutTxt);
             if (!roomTypeTxt.equalsIgnoreCase("select type")) {
@@ -321,8 +371,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     for (int i = 0; i < rooms.size(); i++) {
                         if (reservedRoomHashMap.containsKey(rooms.get(i).getId())) {
                             ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
-                            Date inReservedDate = formatDate(reservedRoom.getCheck_In());
-                            Date outReservedDate = formatDate(reservedRoom.getCheck_Out());
+                            Date inReservedDate = formatDateBase(reservedRoom.getCheck_In());
+                            Date outReservedDate = formatDateBase(reservedRoom.getCheck_Out());
 
                             if (inUserDate.compareTo(outReservedDate) > 0 || outUserDate.compareTo(inReservedDate) < 0) {
                                 if (rooms.get(i).getRoomType().equalsIgnoreCase(roomTypeTxt)) {
@@ -331,15 +381,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                 }
                             }
+                           /* Date currentDateFormat=formatDate(currentDate);
+                            if(currentDateFormat.compareTo(outReservedDate)>0){
+                                int daysNumber=calculateDays(currentDate,reservedRoom.getCheck_In());
+                                if(daysNumber==1){
+                                    rooms.get(i).setRoomStatus("On-Change");
+
+                                }
+                                }*/
 
                         } else {
+
                             if (rooms.get(i).getRoomType().equalsIgnoreCase(roomTypeTxt))
                                 roomsFiltered.add(rooms.get(i));
                         }
                     }
 
                     recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    com.example.finalproject.CaptionedImageAdapter adapter = new com.example.finalproject.CaptionedImageAdapter(MainActivity.this, roomsFiltered, checkInTxt, checkOutTxt);
+                    CaptionedImageAdapter adapter = new CaptionedImageAdapter(MainActivity.this, roomsFiltered, checkInTxt, checkOutTxt);
 
                     recycler.setAdapter(adapter);
                 } else {
@@ -351,9 +410,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     for (int i = 0; i < rooms.size(); i++) {
                         if (reservedRoomHashMap.containsKey(rooms.get(i).getId())) {
                             ReservedRoom reservedRoom = reservedRoomHashMap.get(rooms.get(i).getId());
-                            Date inReservedDate = formatDate(reservedRoom.getCheck_In());
-                            Date outReservedDate = formatDate(reservedRoom.getCheck_Out());
-
+                            Date inReservedDate = formatDateBase(reservedRoom.getCheck_In());
+                            Date outReservedDate = formatDateBase(reservedRoom.getCheck_Out());
                             if (inUserDate.compareTo(outReservedDate) > 0 || outUserDate.compareTo(inReservedDate) < 0) {
                                 roomsFiltered.add(rooms.get(i));
 
@@ -365,7 +423,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
 
                     recycler.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    com.example.finalproject.CaptionedImageAdapter adapter = new com.example.finalproject.CaptionedImageAdapter(MainActivity.this, roomsFiltered, checkInTxt, checkOutTxt);
+                    com.example.finalproject.CaptionedImageAdapter adapter = new CaptionedImageAdapter(MainActivity.this, roomsFiltered, checkInTxt, checkOutTxt);
 
                     recycler.setAdapter(adapter);
                 } else {
