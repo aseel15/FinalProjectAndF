@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-
 import com.example.finalproject.model.ServiceItem;
 
 import java.util.ArrayList;

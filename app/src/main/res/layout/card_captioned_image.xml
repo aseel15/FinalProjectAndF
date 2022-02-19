@@ -58,8 +58,6 @@
                 android:text="Detail"
                 card_view:backgroundTint="#10B5E3"
                 tools:ignore="TouchTargetSizeCheck" />
-
-
         </LinearLayout>
 
     </LinearLayout>

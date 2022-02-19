@@ -1,12 +1,5 @@
 package com.example.finalproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +7,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -154,7 +154,10 @@ public class addPersonAdmin extends AppCompatActivity implements NavigationView.
                 intent=new Intent(addPersonAdmin.this, LogOut.class);
                 startActivity(intent);
                 break;
-
+            case R.id.nav_parties_a:
+                intent=new Intent(addPersonAdmin.this, PlacesEmployeeView.class);
+                startActivity(intent);
+                break;
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);

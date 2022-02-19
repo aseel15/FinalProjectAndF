@@ -26,10 +26,10 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddRoom extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class addPlace extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private Spinner spinRoomType, spinBedType, spinNumOfBeds;
-    private EditText edtSize,edtPrice;
+    private Spinner spinPlaceType;
+    private EditText edtdesc,edtPrice;
     int req_Code=1;
     String urlImage="";
     Toolbar toolbar;
@@ -39,15 +39,15 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_room);
-        spinBedType=findViewById(R.id.bedTypeAdded);
-        spinRoomType=findViewById(R.id.roomTypeAdded);
-        spinNumOfBeds=findViewById(R.id.numOfBAdded);
-        edtSize=findViewById(R.id.roomSizeAddedn);
+        setContentView(R.layout.add_place);
+
+        spinPlaceType=findViewById(R.id.placeTypeSpinner);
+
+        edtdesc=findViewById(R.id.placeDescT);
         edtPrice=findViewById(R.id.PriceAdded);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Insert Room");
+        getSupportActionBar().setTitle("Add Place");
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_Drawer_Open, R.string.navigation_Drawer_Close);
         drawerLayout.addDrawerListener(toggle);
@@ -60,50 +60,44 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
         if (savedInstanceState!=null)
             onRestoreInstanceState(savedInstanceState);
 
-       // populateImages();
+        // populateImages();
 
     }
     @Override
     protected void onSaveInstanceState(Bundle outState){
-        outState.putString("ImageUrlSaved",urlImage);
-
-        super.onSaveInstanceState(outState);
-
+       outState.putString("ImageUrlSaved",urlImage);
+       super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState){
-        super.onRestoreInstanceState(savedInstanceState);
+      super.onRestoreInstanceState(savedInstanceState);
         urlImage=savedInstanceState.getString("ImageUrlSaved");
     }
 
 
-    public void btnClkAddRoom(View view) {
+    public void btnClkAddPlace(View view) {
         String priceTxt=edtPrice.getText().toString();
-        String sizeTxt=edtSize.getText().toString();
-        String roomType=spinRoomType.getSelectedItem().toString();
-        String bedType=spinBedType.getSelectedItem().toString();
-        if(roomType.equalsIgnoreCase("select type"))
-            Toast.makeText(AddRoom.this, ("Please choose the room type"), Toast.LENGTH_SHORT).show();
-        else if(bedType.equalsIgnoreCase("select type"))
-            Toast.makeText(AddRoom.this, ("Please choose the bed type"), Toast.LENGTH_SHORT).show();
+        String descTxt=edtdesc.getText().toString();
+        String placeType=spinPlaceType.getSelectedItem().toString();
+        if(placeType.equalsIgnoreCase("select type"))
+            Toast.makeText(addPlace.this, ("Please choose the place type"), Toast.LENGTH_SHORT).show();
         else if(priceTxt.isEmpty())
-            Toast.makeText(AddRoom.this, ("Please enter the price"), Toast.LENGTH_SHORT).show();
-        else if(sizeTxt.isEmpty())
-            Toast.makeText(AddRoom.this, ("Please enter the size"), Toast.LENGTH_SHORT).show();
-        else if(urlImage.isEmpty())
-            Toast.makeText(AddRoom.this, ("Please choose the image "), Toast.LENGTH_SHORT).show();
+            Toast.makeText(addPlace.this, ("Please enter the price"), Toast.LENGTH_SHORT).show();
+        else if(descTxt.isEmpty())
+            Toast.makeText(addPlace.this, ("Please enter the Description"), Toast.LENGTH_SHORT).show();
+      else if(urlImage.isEmpty())
+          Toast.makeText(addPlace.this, ("Please choose the image "), Toast.LENGTH_SHORT).show();
         else {
             //call database method
-            AddRoomToDB();
+            AddPlaceToDB();
 
         }
 
 
     }
-    public void AddRoomToDB(){
-        String url="http://10.0.2.2:80/FinalProject/addRoomToDB.php";
-
+    public void AddPlaceToDB(){
+        String url="http://10.0.2.2:80/FinalProject/addPlace.php";
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request=new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -111,7 +105,7 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
                     public void onResponse(String response) {
 
                         //textTry.setText(response);
-                        Toast.makeText(AddRoom.this,
+                        Toast.makeText(addPlace.this,
                                 response, Toast.LENGTH_SHORT).show();
 
                     }
@@ -119,7 +113,7 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(AddRoom.this,
+                Toast.makeText(addPlace.this,
                         "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
             }
         }){
@@ -132,13 +126,10 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
 
                 Map<String, String> params = new HashMap<>();
 
-
                 params.put("price", edtPrice.getText().toString());
-                params.put("imageName", urlImage);
-                params.put("roomType", spinRoomType.getSelectedItem().toString());
-                params.put("bedType",spinBedType.getSelectedItem().toString());
-                params.put("numOfBeds",spinNumOfBeds.getSelectedItem().toString());
-                params.put("roomSize",edtSize.getText().toString());
+                params.put("image", urlImage);
+                params.put("name", spinPlaceType.getSelectedItem().toString());
+                params.put("description",edtdesc.getText().toString());
 
                 return params;
             }
@@ -153,59 +144,57 @@ public class AddRoom extends AppCompatActivity implements NavigationView.OnNavig
         super.onActivityResult(reqCode, resultCode, data);
         if (reqCode == req_Code) {
             if (resultCode == RESULT_OK) {
-                urlImage = data.getData().toString();
+             urlImage = data.getData().toString();
 
             }
         }
-
-
     }
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
 
             case R.id.nav_home_a:
-                intent=new Intent(AddRoom.this, EmployeeResRoom.class);
+                intent=new Intent(addPlace.this, EmployeeResRoom.class);
                 startActivity(intent);
                 break;
             case R.id.nav_addroom_a:
-                intent=new Intent(AddRoom.this, AddRoom.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_services_a:
-                intent=new Intent(AddRoom.this, AcceptServiceByEmployee.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_trips_a:
-                intent=new Intent(AddRoom.this, ControlTripAdmin.class);
-                startActivity(intent);
-                break;
-
-            case R.id.nav_persons_a:
-                intent=new Intent(AddRoom.this, AllUser.class);
-                startActivity(intent);
-                break;
-
-            case R.id.nav_add_Person_a:
-                intent=new Intent(AddRoom.this, addPersonAdmin.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_logout_a:
-                intent=new Intent(AddRoom.this, LogOut.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_parties_a:
-                intent=new Intent(AddRoom.this, PlacesEmployeeView.class);
+                intent=new Intent(addPlace.this, AddRoom.class);
                 startActivity(intent);
                 break;
 
             case R.id.nav_addPlace_a:
-                intent=new Intent(AddRoom.this, addPlace.class);
+                intent=new Intent(addPlace.this, addPlace.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_parties_a:
+                intent=new Intent(addPlace.this, PlacesEmployeeView.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_services_a:
+                intent=new Intent(addPlace.this, AcceptServiceByEmployee.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_trips_a:
+                intent=new Intent(addPlace.this, ControlTripAdmin.class);
+                startActivity(intent);
+                break;
+
+            case R.id.nav_persons_a:
+                intent=new Intent(addPlace.this, AllUser.class);
+                startActivity(intent);
+                break;
+
+            case R.id.nav_add_Person_a:
+                intent=new Intent(addPlace.this, addPersonAdmin.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_logout_a:
+                intent=new Intent(addPlace.this, LogOut.class);
+                startActivity(intent);
+                break;
+
+
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);

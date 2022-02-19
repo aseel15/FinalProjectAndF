@@ -5,6 +5,15 @@
         <item>double</item>
         <item>single</item>
     </string-array>
+
+    <string-array name="PlaceTypeItems">
+        <item>All </item>
+        <item>Garden</item>
+        <item>Swimming Pool</item>
+        <item>spa</item>
+        <item>hall</item>
+    </string-array>
+
     <string-array name="numOfBeds">
         <item>1</item>
         <item>2</item>

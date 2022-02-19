@@ -28,7 +28,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.finalproject.model.ServiceItem;
 import com.google.android.material.navigation.NavigationView;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -144,13 +143,13 @@ public class ServiceActivityCustomer extends AppCompatActivity implements Naviga
 
     private ArrayList<ServiceItem> getServiceItems() {
         serviceItems=new ArrayList<>();
-        serviceItems.add(new ServiceItem("select",R.drawable.ic_toiletries));
-        serviceItems.add(new ServiceItem("Beverage",R.drawable.beverage));
+        serviceItems.add(new ServiceItem("select", R.drawable.ic_toiletries));
+        serviceItems.add(new ServiceItem("Beverage", R.drawable.beverage));
         serviceItems.add(new ServiceItem("Extra Toiletries", R.drawable.toiletries));
-        serviceItems.add(new ServiceItem("Extra Towels",R.drawable.towels));
-        serviceItems.add(new ServiceItem("Food",R.drawable.fastfood));
-        serviceItems.add(new ServiceItem("Valet Parking",R.drawable.keys));
-        serviceItems.add(new ServiceItem("House Keeping",R.drawable.housecleaning));
+        serviceItems.add(new ServiceItem("Extra Towels", R.drawable.towels));
+        serviceItems.add(new ServiceItem("Food", R.drawable.fastfood));
+        serviceItems.add(new ServiceItem("Valet Parking", R.drawable.keys));
+        serviceItems.add(new ServiceItem("House Keeping", R.drawable.housecleaning));
 
         return serviceItems;
     }
@@ -226,7 +225,6 @@ public class ServiceActivityCustomer extends AppCompatActivity implements Naviga
         queue.add(request);
     }
 
-
     public void btnRequestClick(View view) {
         if(roomIdChosen==null){
             Toast.makeText(ServiceActivityCustomer.this, "you should choose the room Id! ",
@@ -274,6 +272,10 @@ public class ServiceActivityCustomer extends AppCompatActivity implements Naviga
 
             case R.id.nav_logout:
                 intent=new Intent(ServiceActivityCustomer.this, LogOut.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_parties:
+                intent=new Intent(ServiceActivityCustomer.this, PlacesEmployeeView.class);
                 startActivity(intent);
                 break;
 

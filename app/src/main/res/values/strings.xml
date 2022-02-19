@@ -9,4 +9,11 @@
     <string name="title_activity_main">MainActivity</string>
 
 
+    <string name="titlePlaceholder">title</string>
+    <string name="DescriptionPlaceholder">Description</string>
+    <string name="pricePlaceholder">Price</string>
+    <string name="reservePlace">Reserve</string>
+    <string name="paymnet">Paymnet</string>
+
+
 </resources>

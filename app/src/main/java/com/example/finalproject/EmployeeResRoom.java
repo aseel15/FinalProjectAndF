@@ -398,6 +398,10 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
                 intent=new Intent(EmployeeResRoom.this, AddRoom.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_addPlace_a:
+                intent=new Intent(EmployeeResRoom.this, addPlace.class);
+                startActivity(intent);
+                break;
             case R.id.nav_services_a:
                 intent=new Intent(EmployeeResRoom.this, AcceptServiceByEmployee.class);
                 startActivity(intent);
@@ -406,7 +410,10 @@ public class EmployeeResRoom extends AppCompatActivity implements NavigationView
                 intent=new Intent(EmployeeResRoom.this, ControlTripAdmin.class);
                 startActivity(intent);
                 break;
-
+            case R.id.nav_parties_a:
+                intent=new Intent(EmployeeResRoom.this, PlacesEmployeeView.class);
+                startActivity(intent);
+                break;
             case R.id.nav_persons_a:
                 intent=new Intent(EmployeeResRoom.this, AllUser.class);
                 startActivity(intent);

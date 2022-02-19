@@ -16,8 +16,30 @@
         <activity
             android:name=".LogOut"
             android:exported="true" />
+
+        <activity android:name=".PlacesEmployeeView"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".DetailsActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".APIActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".EmployeeDetailsActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EmployeePlaceRes"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".PlaceRes"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -28,10 +50,13 @@
             android:name=".AddRoom"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar" />
+
+
         <activity
             android:name=".ImageHotelActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".AllUser"
             android:exported="true"
@@ -40,6 +65,11 @@
             android:name=".DeleteReserveTripAdmin"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".addPlace"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".ControlTripAdmin"
             android:exported="true"

@@ -8,8 +8,6 @@
     tools:context=".DetailActivity"
     android:background="@color/zumthor">
 
-
-
     <TextView
         android:id="@+id/txtTry"
         android:layout_width="wrap_content"

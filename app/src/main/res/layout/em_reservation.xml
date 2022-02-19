@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/zumthor">
+
+    <ScrollView
+        style="@style/ScrollViewStyle">
+        <LinearLayout
+            style="@style/LinearLayoutStyle">
+            <TextView
+                style="@style/TextViewStyle"
+                android:id="@+id/tvHotelBook"
+                android:text="Reserve Place"
+                android:background="#10B5E3"
+                android:textColor="#fff"
+                android:textSize="35dp"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:layout_marginBottom="50dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/amarante"
+                    android:text="The Id of User"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/edtUserIdem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="35dp"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/checkInDateButton"
+                style="@style/ButtonStyle"
+                android:layout_height="38dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#10B5E3"
+                android:text="Check In date"
+                android:textSize="18dp" />
+
+
+            <Button
+                android:id="@+id/checkOutDateButton"
+                style="@style/ButtonStyle"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="#10B5E3"
+                android:textSize="18dp"
+                android:layout_marginLeft="20dp"
+                android:text="check out date" />
+
+            <LinearLayout
+                style="@style/LinearLayoutStyle"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="50dp"
+                android:padding="5dp">
+
+                <TextView
+                    style="@style/TextViewStyle"
+                    android:layout_width="255dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Number of people "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#060D31" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="no. of people"
+                    android:id="@+id/edtNumOfPeople"
+                    android:textAlignment="center"
+                    android:inputType="number"
+                    />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/confirmPlaceButton"
+                style="@style/ButtonStyle"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                android:background="#10B5E3"
+                android:onClick="btnConfirmOnClick"
+                android:text="Confirm "
+                android:layout_marginTop="50sp"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="25dp" />
+
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

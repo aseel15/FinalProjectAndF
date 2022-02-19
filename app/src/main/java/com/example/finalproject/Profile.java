@@ -1,12 +1,6 @@
 package com.example.finalproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +8,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -36,6 +37,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
     Toolbar toolbar;
     private DrawerLayout drawerLayout;
     NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,9 +142,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
 
             @Override
             public void onResponse(String response) {
-
                 try {
-
                     JSONObject jsonObject = new JSONObject(response);
 
                     SharedPreferences remember = getSharedPreferences("checkBox", MODE_PRIVATE);
@@ -160,7 +160,6 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
 
         }, new com.android.volley.Response.ErrorListener() {
@@ -191,6 +190,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
         String url = "http://10.0.2.2:80/FinalProject/profile.php?user_id="+user_id;
         RequestQueue queue = Volley.newRequestQueue(Profile.this);
         StringRequest request = new StringRequest(Request.Method.GET, url, new com.android.volley.Response.Listener<String>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(String response) {
 
@@ -211,9 +211,16 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                     }else
                         edtRooms.setText("There is no reserved rooms");
 
+                    if (!jsonObject.getString("partyName").equals("false")){
+
+                        edtParties.setText(jsonObject.getString("partyName"));
+                        totalPayment+=Integer.parseInt(jsonObject.getString("tripPrice"));
+                    }else
+                        edtTrips.setText("There is not reserved places");
 
                     if (!jsonObject.getString("servicePrice").equals("false")){
-                        totalPayment+=Integer.parseInt(jsonObject.getString("servicePrice"));}
+                        totalPayment+=Integer.parseInt(jsonObject.getString("servicePrice"));
+                    }
 
 
 //                    if (!jsonObject.getString("partyName").equals("false")){
@@ -268,7 +275,10 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 intent=new Intent(Profile.this, LogOut.class);
                 startActivity(intent);
                 break;
-
+            case R.id.nav_parties:
+                intent=new Intent(Profile.this, PlacesEmployeeView.class);
+                startActivity(intent);
+                break;
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);

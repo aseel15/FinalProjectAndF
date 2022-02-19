@@ -155,7 +155,15 @@ public class AcceptServiceByEmployee extends AppCompatActivity implements Naviga
                 intent=new Intent(AcceptServiceByEmployee.this, LogOut.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_parties_a:
+                intent=new Intent(AcceptServiceByEmployee.this, PlacesEmployeeView.class);
+                startActivity(intent);
+                break;
 
+            case R.id.nav_addPlace_a:
+                intent=new Intent(AcceptServiceByEmployee.this, addPlace.class);
+                startActivity(intent);
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

@@ -455,7 +455,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 intent=new Intent(MainActivity.this, TripList.class);
                 startActivity(intent);
                 break;
-
             case R.id.nav_person:
                 intent=new Intent(MainActivity.this, Profile.class);
                 startActivity(intent);
@@ -466,6 +465,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_logout:
                 intent=new Intent(MainActivity.this, LogOut.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_parties:
+                intent=new Intent(MainActivity.this, PlacesEmployeeView.class);
                 startActivity(intent);
                 break;
 

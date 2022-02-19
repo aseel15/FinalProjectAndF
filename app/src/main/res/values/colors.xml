@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="zumthor">#FFE8EEFF</color>
     <color name="blue">#FF10b5e3</color>
+    <color name="background">#e8eeff</color>
+
 
 
 </resources>

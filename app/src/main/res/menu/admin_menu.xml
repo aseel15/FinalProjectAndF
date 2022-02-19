@@ -17,6 +17,14 @@
 
     <group>
         <item
+            android:id="@+id/nav_addPlace_a"
+            android:icon="@drawable/ic_baseline_parties_24"
+            android:title="Add Place" />
+    </group>
+
+
+    <group>
+        <item
             android:id="@+id/nav_services_a"
             android:icon="@drawable/ic_service"
             android:title="Services" />

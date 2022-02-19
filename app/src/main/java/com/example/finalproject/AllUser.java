@@ -1,12 +1,5 @@
 package com.example.finalproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,6 +8,13 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,6 +37,7 @@ public class AllUser extends AppCompatActivity implements NavigationView.OnNavig
     Toolbar toolbar;
     private DrawerLayout drawerLayout;
     NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,7 +186,15 @@ public class AllUser extends AppCompatActivity implements NavigationView.OnNavig
                 intent=new Intent(AllUser.this, LogOut.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_parties_a:
+                intent=new Intent(AllUser.this, PlacesEmployeeView.class);
+                startActivity(intent);
+                break;
 
+            case R.id.nav_addPlace_a:
+                intent=new Intent(AllUser.this, addPlace.class);
+                startActivity(intent);
+                break;
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);

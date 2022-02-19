@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!--  ************************************** -->
+<!--     MADE BY OSID ABU-ALRUB (1183096)    -->
+<!--  ************************************** -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="29dp">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="payment"
+                android:textSize="30sp" />
+
+            <EditText
+                android:id="@+id/editTextCardNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:hint="card number"
+                android:inputType="number"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/textViewCardNumberRules"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="must be 16 numbers" />
+
+            <EditText
+                android:id="@+id/editTextCardHolderName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:hint="Holder Name on the card"
+                android:inputType="text"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name" />
+
+            <EditText
+                android:id="@+id/editTextCardCVV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:hint="Card CVV"
+                android:inputType="number"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/textViewCardCVVRules"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="must be 3 numbers" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/editTextCardExpireDateMonth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="30dp"
+                    android:layout_toRightOf="@+id/editTextCardExpireDateYear"
+                    android:layout_weight="3"
+                    android:hint="MM/yy"
+                    android:inputType="number"
+                    android:textSize="22sp" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+                <EditText
+                    android:id="@+id/editTextCardExpireDateYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_weight="6"
+                    android:hint="000"
+                    android:inputType="number"
+                    android:textSize="22sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <Button
+                android:id="@+id/confirmPlaceButton"
+                style="@style/ButtonStyle"
+                android:layout_marginLeft="85dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="85dp"
+                android:background="#14247C"
+                android:onClick="buttonConfPayClick"
+                android:text="Confirm Payment"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="20dp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </ScrollView>
+
+</RelativeLayout>
