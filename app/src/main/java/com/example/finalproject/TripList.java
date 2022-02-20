@@ -79,6 +79,7 @@ public class TripList extends AppCompatActivity implements NavigationView.OnNavi
             public void onResponse(JSONArray response) {
                 ArrayList<String> trips = new ArrayList<>();
                 tripObj = new Trip[response.length()];
+
                 for (int i = 0; i < response.length(); i++) {
                     try {
 
@@ -95,11 +96,14 @@ public class TripList extends AppCompatActivity implements NavigationView.OnNavi
                         Log.d("Error", exception.toString());
                     }
                 }
+
                 arr = new String[trips.size()];
                 arr = trips.toArray(arr);
+                Toast.makeText(TripList.this, "size trip "+arr.length,Toast.LENGTH_SHORT).show();
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(
                         TripList.this, android.R.layout.simple_list_item_1,
-                        arr);
+                        trips);
+
                 lst.setAdapter(adapter);
 
                 lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -161,7 +165,7 @@ public class TripList extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(intent);
                 break;
             case R.id.nav_parties:
-                intent=new Intent(TripList.this, PlacesEmployeeView.class);
+                intent=new Intent(TripList.this, PlaceActivityView.class);
                 startActivity(intent);
                 break;
 

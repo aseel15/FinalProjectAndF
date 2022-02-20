@@ -65,7 +65,6 @@ public class addPlace extends AppCompatActivity implements NavigationView.OnNavi
     }
     @Override
     protected void onSaveInstanceState(Bundle outState){
-       outState.putString("ImageUrlSaved",urlImage);
        super.onSaveInstanceState(outState);
     }
 
@@ -86,8 +85,6 @@ public class addPlace extends AppCompatActivity implements NavigationView.OnNavi
             Toast.makeText(addPlace.this, ("Please enter the price"), Toast.LENGTH_SHORT).show();
         else if(descTxt.isEmpty())
             Toast.makeText(addPlace.this, ("Please enter the Description"), Toast.LENGTH_SHORT).show();
-      else if(urlImage.isEmpty())
-          Toast.makeText(addPlace.this, ("Please choose the image "), Toast.LENGTH_SHORT).show();
         else {
             //call database method
             AddPlaceToDB();
@@ -127,7 +124,6 @@ public class addPlace extends AppCompatActivity implements NavigationView.OnNavi
                 Map<String, String> params = new HashMap<>();
 
                 params.put("price", edtPrice.getText().toString());
-                params.put("image", urlImage);
                 params.put("name", spinPlaceType.getSelectedItem().toString());
                 params.put("description",edtdesc.getText().toString());
 

@@ -46,7 +46,7 @@
               app:srcCompat="@drawable/image" />
           <TextView
               android:id="@+id/UserId"
-              android:layout_width="231dp"
+              android:layout_width="wrap_content"
               android:layout_height="33dp"
               android:layout_marginTop="15dp"
               android:fontFamily="sans-serif-condensed"
@@ -59,7 +59,7 @@
 
           <TextView
               android:id="@+id/UserName"
-              android:layout_width="232dp"
+              android:layout_width="wrap_content"
               android:layout_height="32dp"
               android:layout_marginTop="10dp"
               android:fontFamily="sans-serif-condensed"
@@ -73,7 +73,7 @@
           <TextView
               android:id="@+id/Email"
               android:layout_width="231dp"
-              android:layout_height="33dp"
+              android:layout_height="wrap_content"
               android:layout_marginTop="10dp"
               android:fontFamily="sans-serif-condensed"
               android:gravity="center"

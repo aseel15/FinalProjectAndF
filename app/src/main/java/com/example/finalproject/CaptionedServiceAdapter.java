@@ -110,7 +110,7 @@ public class CaptionedServiceAdapter extends RecyclerView.Adapter<CaptionedServi
                                  if(roomIdUser==servicesFromTable.get(i).getRoomId()) {
                                      int idService=servicesFromTable.get(i).getId();
                                      priceInc=servicesFromTable.get(i).getTotalPrice()+5;
-                                     serviceName.setText("price "+idService);
+
                                      updateService(idService,priceInc);
                                     //call updateService();
                                     flag=true;
@@ -119,7 +119,6 @@ public class CaptionedServiceAdapter extends RecyclerView.Adapter<CaptionedServi
                             }
                             if(!flag) {
                                 addServices();
-                                serviceName.setText("enter to add");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -137,7 +136,7 @@ public class CaptionedServiceAdapter extends RecyclerView.Adapter<CaptionedServi
     }
 
 
-    public void addServices(/*int userId, int roomId,int totalPrice*/ ){
+    public void addServices(){
         //if the user id is not found in the service table
         String url="http://10.0.2.2:80/FinalProject/addService.php";
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -178,25 +177,18 @@ public class CaptionedServiceAdapter extends RecyclerView.Adapter<CaptionedServi
     }
     public void updateService(int id,int totalPrice){
         //if the user id is in the table then update his price
-       // serviceName.setText("id ser "+id);
         String url="http://10.0.2.2:80/FinalProject/updateService.php?id="+id+"&totalPrice="+totalPrice;
         RequestQueue queue = Volley.newRequestQueue(context);
         StringRequest request=new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //textTry.setText(error.getMessage());
-
-                       // serviceName.setText("id ser "+totalPrice);
                         Toast.makeText(context,
                                 response, Toast.LENGTH_LONG).show();
-
-
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //textTry.setText(error.getMessage());
                 Toast.makeText(context,
                         "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
             }
@@ -228,7 +220,6 @@ public class CaptionedServiceAdapter extends RecyclerView.Adapter<CaptionedServi
             }
             @Override
             protected Map<String, String> getParams() {
-                //ServiceFromTable service=new ServiceFromTable(userId,roomId,totalPrice);
                 Map<String, String> params = new HashMap<>();
                 //by shared preference
                 params.put("id",idd+"");

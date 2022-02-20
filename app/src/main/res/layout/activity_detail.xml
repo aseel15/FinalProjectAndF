@@ -9,12 +9,18 @@
     android:background="@color/zumthor">
 
     <TextView
-        android:id="@+id/txtTry"
+        android:id="@+id/txtTryEm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Details"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/amarante"
+        android:text="Details"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:typeface="serif" />
 
     <ListView
         android:id="@+id/listView"
@@ -24,6 +30,7 @@
         android:layout_marginRight="36dp"
         android:layout_marginLeft="36dp"
         android:layout_marginBottom="10dp"
+        android:dividerHeight="10dp"
         />
 
     <Button

@@ -109,7 +109,7 @@ public class DetailActivityEm extends AppCompatActivity {
         arr.add("Price : "+room.getPrice()+"$");
         arr.add("Room Size : "+room.getRoomSize());
         arr.add("Bed Type : "+room.getBedType());
-        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arr);
+        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arr);
         listView.setAdapter(arrayAdapter);
 
 

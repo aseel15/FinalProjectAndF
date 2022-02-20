@@ -275,7 +275,7 @@ public class ServiceActivityCustomer extends AppCompatActivity implements Naviga
                 startActivity(intent);
                 break;
             case R.id.nav_parties:
-                intent=new Intent(ServiceActivityCustomer.this, PlacesEmployeeView.class);
+                intent=new Intent(ServiceActivityCustomer.this, PlaceActivityView.class);
                 startActivity(intent);
                 break;
 

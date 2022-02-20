@@ -77,24 +77,6 @@ public class AcceptServiceByEmployee extends AppCompatActivity implements Naviga
                                 services.add(new ServiceFromTable(id,roomId,userId,serviceName,price));
                             }
                             populateServices();
-                          /*  boolean flag=false;
-
-                            for(int i=0;i<servicesFromTable.size();i++){
-                                // serviceName.append("exi"+servicesFromTable.get(i).getRoomId());
-                                if(id==servicesFromTable.get(i).getUserId())
-                                    if(roomIdUser==servicesFromTable.get(i).getRoomId()) {
-                                        int idService=servicesFromTable.get(i).getId();
-                                        updateService(idService,servicesFromTable.get(i).getTotalPrice());
-                                        //call updateService();
-                                        serviceName.setText("enter to update");
-                                        flag=true;
-                                        break;
-                                    }
-                            }
-                            if(!flag) {
-                                addServices();
-                                serviceName.setText("enter to add");
-                            }*/
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -110,8 +92,6 @@ public class AcceptServiceByEmployee extends AppCompatActivity implements Naviga
         queue.add(request);
     }
     public void populateServices(){
-       /* TextView text=findViewById(R.id.textTT);
-        text.setText("size = "+services.size());*/
         recyclerView.setLayoutManager(new LinearLayoutManager(AcceptServiceByEmployee.this));
         CaptionedServiceAdapter adapter = new CaptionedServiceAdapter(AcceptServiceByEmployee.this,services);
 

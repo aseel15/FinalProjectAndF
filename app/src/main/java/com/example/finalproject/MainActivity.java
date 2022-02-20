@@ -237,26 +237,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         int totalPrice=jsonObject.getInt("totalPrice");
                         reservedRoomHashMap.put(roomID,new ReservedRoom(roomID,check_In,check_Out));
                     }
-                    Toast.makeText(MainActivity.this, "the size "+reservedRoomHashMap.size(),
-                            Toast.LENGTH_SHORT).show();
-                    /*String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-                    Toast.makeText(MainActivity.this,"the roomReserved = "+rooms.toString(),Toast.LENGTH_SHORT).show();
-                    for(int i=0;i< rooms.size();i++)
-                        if(reservedRoomHashMap.containsKey(rooms.get(i).getId())){
-                           // Toast.makeText(MainActivity.this,"the room is on-change",Toast.LENGTH_SHORT).show();
-                            ReservedRoom reservedRoom=reservedRoomHashMap.get(rooms.get(i));
-                            Date checkOutDate=formatDate(reservedRoom.getCheck_Out());
-                            Date currentDateFormat=formatDate(currentDate);
-                            if(currentDateFormat.compareTo(checkOutDate)>0){
-                                int daysNumber=calculateDays(currentDate,reservedRoom.getCheck_In());
-                                if(daysNumber==1){
-                                    rooms.get(i).setRoomStatus("On-Change");
 
-                                }
-                                else
-                                    Toast.makeText(MainActivity.this,"the room is still reserved",Toast.LENGTH_SHORT).show();
-                            }
-                        }*/
                 } catch (JSONException e) {
                    // checkIn.setText(response);
                     e.printStackTrace();
@@ -468,7 +449,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.nav_parties:
-                intent=new Intent(MainActivity.this, PlacesEmployeeView.class);
+                intent=new Intent(MainActivity.this, PlaceActivityView.class);
                 startActivity(intent);
                 break;
 

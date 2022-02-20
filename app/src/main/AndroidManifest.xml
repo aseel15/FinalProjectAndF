@@ -20,6 +20,9 @@
         <activity android:name=".PlacesEmployeeView"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".PlaceActivityView"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".DetailsActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar"/>

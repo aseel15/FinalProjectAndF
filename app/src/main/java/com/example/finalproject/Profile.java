@@ -199,24 +199,24 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                     JSONObject jsonObject = new JSONObject(response);
                     if (!jsonObject.getString("tripName").equals("false")){
 
-                        edtTrips.setText(jsonObject.getString("tripName"));
+                        edtTrips.setText("      "+jsonObject.getString("tripName"));
                         totalPayment+=Integer.parseInt(jsonObject.getString("tripPrice"));
                     }else
-                        edtTrips.setText("There is not reserved trips");
+                        edtTrips.setText("      There is not reserved trips");
 
                     Toast.makeText(Profile.this,jsonObject.getString("roomName"),Toast.LENGTH_SHORT).show();
                     if (!jsonObject.getString("roomName").equals("false")){
-                        edtRooms.setText(jsonObject.getString("roomName"));
+                        edtRooms.setText("      "+jsonObject.getString("roomName"));
                         totalPayment+=Integer.parseInt(jsonObject.getString("roomPrice"));
                     }else
-                        edtRooms.setText("There is no reserved rooms");
+                        edtRooms.setText("      There is no reserved rooms");
 
                     if (!jsonObject.getString("partyName").equals("false")){
 
-                        edtParties.setText(jsonObject.getString("partyName"));
+                        edtParties.setText("      "+jsonObject.getString("partyName"));
                         totalPayment+=Integer.parseInt(jsonObject.getString("tripPrice"));
                     }else
-                        edtTrips.setText("There is not reserved places");
+                        edtParties.setText("      There is not reserved places");
 
                     if (!jsonObject.getString("servicePrice").equals("false")){
                         totalPayment+=Integer.parseInt(jsonObject.getString("servicePrice"));
@@ -230,7 +230,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
 //                        edtRooms.setText("There is no reserved parties");
 
 
-                    edtPayment.setText(String.valueOf(totalPayment));
+                    edtPayment.setText("      "+String.valueOf(totalPayment));
                 }   catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -276,7 +276,7 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(intent);
                 break;
             case R.id.nav_parties:
-                intent=new Intent(Profile.this, PlacesEmployeeView.class);
+                intent=new Intent(Profile.this, PlaceActivityView.class);
                 startActivity(intent);
                 break;
 

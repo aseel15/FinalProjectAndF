@@ -32,7 +32,7 @@ public class CaptionRoomImg extends RecyclerView.Adapter<CaptionRoomImg.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        CardView v = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_captioned_image_api,
+        CardView v = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.captioned_img_room,
                 parent,
                 false);
 

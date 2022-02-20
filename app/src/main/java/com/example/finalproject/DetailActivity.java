@@ -47,7 +47,7 @@ public class DetailActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_detail);
         Intent intent = getIntent();
-        textTry=findViewById(R.id.txtTry);
+
 
         if (savedInstanceState!=null){
             onRestoreInstanceState(savedInstanceState);
@@ -103,7 +103,7 @@ public class DetailActivity extends AppCompatActivity {
         arr.add("Room Size : "+room.getRoomSize());
         arr.add("Bed Type : "+room.getBedType());
         arr.add("Room Status : "+room.getRoomStatus());
-        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arr);
+        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arr);
         listView.setAdapter(arrayAdapter);
 
 

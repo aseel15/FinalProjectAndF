@@ -239,7 +239,7 @@ public class APIActivity extends AppCompatActivity implements NavigationView.OnN
                 startActivity(intent);
                 break;
             case R.id.nav_parties:
-                intent=new Intent(APIActivity.this, PlacesEmployeeView.class);
+                intent=new Intent(APIActivity.this, PlaceActivityView.class);
                 startActivity(intent);
                 break;
 

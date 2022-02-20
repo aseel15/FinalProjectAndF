@@ -62,7 +62,7 @@ public class ControlTripAdmin extends AppCompatActivity implements NavigationVie
     }
 
     public void populateList() {
-        ListView lst = findViewById(R.id.ListTrip);
+        ListView lst = findViewById(R.id.ListTripA);
         String url = "http://10.0.2.2:80/FinalProject/trip.php";
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url,

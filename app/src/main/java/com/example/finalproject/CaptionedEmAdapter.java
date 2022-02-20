@@ -126,8 +126,6 @@ public class CaptionedEmAdapter extends RecyclerView.Adapter<CaptionedEmAdapter.
                                 int id = jsonObject.getInt("roomsID");
                                 conflictDeleted.add(id+"");
                             }
-                            Toast.makeText(context, conflictDeleted.toString(),
-                                    Toast.LENGTH_LONG).show();
                             if(conflictDeleted.contains(rooms.get(position).getId()+"")){
                                 Toast.makeText(context, "this room is reserved now you can't delete it!",
                                         Toast.LENGTH_LONG).show();
